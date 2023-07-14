@@ -100,6 +100,13 @@ cd Bonnetheads
 
 #####----------- PREPROCESSING YOUR READS ---------###############
 
+# Install cutadapt: 
+cdh
+pip install --user cutadapt
+cp .local/bin/cutadapt ~/bin
+
+
+
 # for reference-based analysis: trimming poor quality bases off ends:
 >trimse
 for file in *.fastq; do
