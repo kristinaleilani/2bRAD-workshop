@@ -160,6 +160,10 @@ sbatch unii.slurm
 # Done! do you have .uni for all your samples?... 
 ls -l *.uni | wc -l  
 
+idev # open an "idev" session to get a development node to work in
+conda activate misc3 # activate your conda environment where you install programs
+# If you can't remember the name of your conda environment, check it with: conda env list
+
 # collecting common tags (= major alleles)
 # merging uniqued files (set minInd to >10, or >10% of total number of samples, whichever is greater)
 mergeUniq.pl uni minInd=10 >all.uniq
@@ -173,7 +177,7 @@ cd-hit-est -i all.fasta -o cdh_alltags.fas -aL 1 -aS 1 -g 1 -c 0.91 -M 0 -T 0
 # making fake reference genome (of 10 chromosomes) out of major-allele tags
 concatFasta.pl fasta=cdh_alltags.fas num=10
 
-
+# to leave idev, type: exit
 
 
 
