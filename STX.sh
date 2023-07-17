@@ -209,6 +209,7 @@ samtools faidx $GENOME_FASTA
 #####---------------------------- MAPPING TO YOUR GENOME -----------------###############
 
 # Mapping your reads to the genome, converting to bams, indexing
+conda activate STX # or activate whichever conda environment has bowtie2 and samtools installed
 export GENOME_FASTA=Coral_symABCD.fasta
 >maps
 for F in `ls *.trim`; do
@@ -216,31 +217,38 @@ echo "bowtie2 --local --no-unal -x $GENOME_FASTA -U ${F} -S ${F/.trim/}.sam && s
 done
 ls6_launcher_creator.py -j maps -n maps -a IBN21018 -e kblack@utexas.edu -t 2:00:00 -w 48 -N 4 -q normal
 sbatch maps.slurm
-# Done! do you have three new files for every sample?... 
+# Done! do you have three new files (sam, bam, and bam.csi) for every sample?... 
 ls -l *.sam | wc -l  
 ls -l *.bam | wc -l 
 ls -l *.bam.csi | wc -l  
 
 
-# Get mapping stats
-# Do this in idev:
+# Get mapping stats (do this in idev):
+idev
 >alignmentRates
 for F in `ls *trim`; do 
 M=`grep -E '^[ATGCN]+$' $F | wc -l | grep -f - maps.e* -A 4 | tail -1 | perl -pe 's/maps\.e\d+-|% overall alignment rate//g'` ;
 echo "$F.sam $M">>alignmentRates;
 done
-#scp alignmentrates
+# scp alignmentRates to your computer (open a new shell on your computer)
+cd path/to/your/documents/on/local/computer
+scp kblack@ls6.tacc.utexas.edu:/scratch/07090/kblack/STX/Bonnetheads/alignmentRates .
+# Open alignmentRates and see what percentage of your reads from each sample mapped to the genome. Hopefully most of them are >75%.
+# This file is just for your reference, so we can see if your samples aligned well to the genome.
 
-# Check how many reads mapped to each genome
-conda activate samtools
+# Check how many reads mapped to each genome:
 >idx
 for F in `ls *.bam`; do
 echo "samtools idxstats ${F} >> idxstats">>idx
 done
-ls6_launcher_creator.py -j idx -n idx -a IBN21018 -e kblack@utexas.edu -t 1:00:00
-sbatch idx.slurm
-# scp idxstats
+bash idx
+# scp idxstats to your computer (open a new shell on your computer)
+cd path/to/your/documents/on/local/computer
+scp kblack@ls6.tacc.utexas.edu:/scratch/07090/kblack/STX/Bonnetheads/idxstats .
+# Open idxstats and see how many reads from each sample mapped to coral chromosomes vs symbiont chromosomes. Hopefully most of the reads mapped to coral (chr1-10).
+# This file is just for your reference, so we can see whether your samples contain mostly coral or symbiont reads.
 
+# exit idev (type exit)
 
 
 
@@ -249,7 +257,7 @@ sbatch idx.slurm
 #####---------------------------- REMOVING SYMBIONT READS -----------------###############
 
 # Split out coral reads to keep (remove reads mapping to symbiont genomes)
-# First, make an index file for coral reads only
+# First, make an index file for coral reads only:
 samtools faidx cdh_alltags_cc.fasta
 awk 'BEGIN {FS="\t"}; {print $1 FS "0" FS $2}' cdh_alltags_cc.fasta.fai > Coral.bed
 
