@@ -193,7 +193,7 @@ cat  cdh_alltags_cc.fasta symA_genomic_cc.fasta symB_genomic_cc.fasta symC_genom
 grep ">chr" Coral_symABCD.fasta # If it shows chr20-23 then you have all 4 symbionts
 
 # Index your genome
-export GENOME_FASTA=cdh_alltags_cc.fasta
+export GENOME_FASTA=Coral_symABCD.fasta
 echo "bowtie2-build $GENOME_FASTA $GENOME_FASTA" >btb2
 ls6_launcher_creator.py -j btb2 -n btb2 -t 1:00:00 -w 48 -N 4 -a IBN21018 -e kblack@utexas.edu  
 sbatch btb2.slurm
@@ -209,13 +209,18 @@ samtools faidx $GENOME_FASTA
 #####---------------------------- MAPPING TO YOUR GENOME -----------------###############
 
 # Mapping your reads to the genome, converting to bams, indexing
-export GENOME_FASTA=cdh_alltags_cc.fasta
+export GENOME_FASTA=Coral_symABCD.fasta
 >maps
 for F in `ls *.trim`; do
-echo "bowtie2 --local --no-unal -x $GENOME_FASTA -U ${F} -S ${F/.trim/}.sam && samtools sort -O bam -o ${F/.trim/}.bam ${F/.trim/}.sam && samtools index ${F/.trim/}.bam">>maps
+echo "bowtie2 --local --no-unal -x $GENOME_FASTA -U ${F} -S ${F/.trim/}.sam && samtools sort -O bam -o ${F/.trim/}.bam ${F/.trim/}.sam && samtools index -c ${F/.trim/}.bam">>maps
 done
 ls6_launcher_creator.py -j maps -n maps -a IBN21018 -e kblack@utexas.edu -t 2:00:00 -w 48 -N 4 -q normal
 sbatch maps.slurm
+# Done! do you have three new files for every sample?... 
+ls -l *.sam | wc -l  
+ls -l *.bam | wc -l 
+ls -l *.bam.csi | wc -l  
+
 
 # Get mapping stats
 # Do this in idev:
@@ -254,6 +259,7 @@ mv *bam* split # move your bams over
 cp *bed split # copy your bed file over
 cd split # working in subdirectory now
 
+# Extract only reads that map to the coral genome (remove the reads mapping to symbionts)
 >split
 for F in `ls *.bam`; do
 echo "samtools view -L Coral.bed -o ${F/001.bam/}_Coral.bam $F" >>split
@@ -274,9 +280,6 @@ cp *_Coral.bam* /scratch/07090/kblack/STX
 cd /scratch/07090/kblack/STX
 
 # Remove _Coral from all file names
-mkdir rename
-cp *_Coral.bam rename
-cd rename
 for filename in *.bam; do 
     [ -f "$filename" ] || continue
     mv "$filename" "${filename//_Coral/}"
@@ -291,8 +294,8 @@ done
 
 #####-------------------------------- GENOTYPING YOUR SAMPLES --------------------###############
 
-# quality assessment, removing bams with log(coverage)<3SD
-# also imposing minimum number of individuals(MI) a locus must be seen in (genotyping rate cutoff - 50%)
+### Quality assessment, removing bams with log(coverage)<3SD
+# also imposing minimum number of individuals (MI) a locus must be seen in (genotyping rate cutoff - 50%)
 # Use angsd installed locally (not conda version)
 module load Rstats
 # Change -minInd to 50% of your sample size
@@ -301,23 +304,37 @@ TODOQ="-doQsDist 1 -doDepth 1 -doCounts 1 -dumpCounts 2"
 echo "ls *.bam > bams && angsd -b bams -GL 1 $FILTERSQ $TODOQ -P 1 -out dd && Rscript ~/bin/plotQC.R prefix=dd >qualRanks">a0
 ls6_launcher_creator.py -j a0 -n a0 -a IBN21018 -e kblack@utexas.edu -t 1:00:00  
 sbatch a0.slurm
-# look at quality of reads in dd.pdf, check how many bams retained in bams.qc
+# scp dd.pdf to your computer (open a new shell on your computer)
+cd path/to/your/documents/on/local/computer
+scp kblack@ls6.tacc.utexas.edu:/scratch/07090/kblack/STX/Bonnetheads/dd.pdf .
+# open dd.pdf and look at quality of reads 
+# back in TACC, check how many bams retained in bams.qc
+wc -l bams.qc
+# These are the number of samples that pass quality control filtering 
 
-# Initial IBS production, detecting and removing clones:
+
+### Initial IBS production, detecting and removing clones:
 # Change STX in the next few lines to your species name
 # Set minInd to 75-80% of your total number of bams
 export MinIndPerc=0.75
 FILTERS0="-uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -dosnpstat 1 -doHWE 1 -sb_pval 1e-5 -hetbias_pval 1e-5 -skipTriallelic 1 -minInd $MI -snp_pval 1e-5 -minMaf 0.05"
 TODO0="-doMajorMinor 1 -doMaf 1 -doCounts 1 -makeMatrix 1 -doIBS 1 -doCov 1 -doGeno 8 -doPost 1 -doGlf 2"
 echo 'export NIND=`cat bams.qc | wc -l`; export MI=`echo "($NIND*$MinIndPerc+0.5)/1" | bc`' >calc1
-echo "source calc1 && angsd -b bams.qc -GL 1 $FILTERS0 $TODO0 -P 12 -out STX && Rscript ~/bin/detect_clones.R bams.qc GBR.ibsMat 0.15">a1
+echo "source calc1 && angsd -b bams.qc -GL 1 $FILTERS0 $TODO0 -P 12 -out STX && Rscript ~/bin/detect_clones.R bams.qc STX.ibsMat 0.15">a1
 ls6_launcher_creator.py -j a1 -n a1 -a IBN21018 -e kblack@utexas.edu -t 2:00:00 -w 1
 sbatch a1.slurm
-# Look for clones in hctree.pdf, check how many bams retained in bams.nr
+# scp hctree.pdf to your computer (open a new shell on your computer)
+cd path/to/your/documents/on/local/computer
+scp kblack@ls6.tacc.utexas.edu:/scratch/07090/kblack/STX/Bonnetheads/hctree.pdf .
+# open hctree.pdf and look for clones (branches hanging below the 0.15 cutoff)
+# back in TACC, check how many bams retained in bams.nr
+wc -l bams.nr
+# These are the number of samples after quality control filtering and removing clones
+
 
 # Final IBS production:
-# Change STX in the next few lines to your species name
-# Set minInd to 75-80% of your total number of bams
+# Change STX in the next few lines to your species name (ex. AAGA, PAST, PSTR, MCAV, or SSID)
+export MinIndPerc=0.75
 FILTERS1="-uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -dosnpstat 1 -doHWE 1 -sb_pval 1e-5 -hetbias_pval 1e-5 -skipTriallelic 1 -minInd 1000 -snp_pval 1e-5 -minMaf 0.05"
 TODO1="-doMajorMinor 1 -doMaf 1 -doCounts 1 -makeMatrix 1 -doIBS 1 -doCov 1 -doGeno 8 -doPost 1 -doGlf 2"
 echo 'cat bams.nr | sort > bams.NR && mv bams.NR bams.nr && export NIND2=`cat bams.nr | wc -l`; export MI2=`echo "($NIND2*$MinIndPerc+0.5)/1" | bc`' >calc2
@@ -325,8 +342,13 @@ echo "source calc2 && angsd -b bams.nr -GL 1 $FILTERS1 $TODO1 -P 12 -out STX && 
 ls6_launcher_creator.py -j a2 -n a2 -a IBN21018 -e kblack@utexas.edu -t 2:00:00 -w 1 
 sbatch a2.slurm
 # Check how many sites retained:
-NSITES=`zcat myresult.mafs.gz | wc -l`
+NSITES=`zcat STX.mafs.gz | wc -l`
 echo $NSITES
 
 
-# scp *Mat, *qopt and bams files to laptop, use angsd_ibs_pca.R to plot PCA and admixturePlotting_v4.R to plot ADMIXTURE
+# scp *ibsMat and bams.nr to your computer (open a new shell on your computer)
+cd path/to/your/documents/on/local/computer
+scp kblack@ls6.tacc.utexas.edu:/scratch/07090/kblack/STX/Bonnetheads/*ibsMat .
+scp kblack@ls6.tacc.utexas.edu:/scratch/07090/kblack/STX/Bonnetheads/bams.nr .
+
+# From here, we will move to R where we will plot population structure!
