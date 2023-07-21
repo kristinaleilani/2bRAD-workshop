@@ -270,7 +270,7 @@ cd split # working in subdirectory now
 # Extract only reads that map to the coral genome (remove the reads mapping to symbionts)
 >split
 for F in `ls *.bam`; do
-echo "samtools view -L Coral.bed -o ${F/001.bam/}_Coral.bam $F" >>split
+echo "samtools view -L Coral.bed -o ${F/.bam/}_Coral.bam $F" >>split
 done
 ls6_launcher_creator.py -j split -n split -a IBN21018 -e kblack@utexas.edu -t 00:10:00 -w 48 -q normal
 sbatch split.slurm
@@ -294,13 +294,13 @@ for filename in *.bam; do
 done
 
 
-# Re-index your new coral-only bams
->index
+# Reindex new bams names
+>maps2
 for F in `ls *.bam`; do
-echo "samtools index -c ${F}.bam">>index
+echo "samtools index $F">>maps2
 done
-ls6_launcher_creator.py -j index -n index -a IBN21018 -e kblack@utexas.edu -t 2:00:00 -w 48 -N 4 
-sbatch index.slurm
+ls6_launcher_creator.py -j maps2 -n maps2 -a IBN21018 -e kblack@utexas.edu -t 0:10:00  
+sbatch maps2.slurm
 
 
 
