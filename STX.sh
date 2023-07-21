@@ -343,7 +343,7 @@ wc -l bams.nr
 # Final IBS production:
 # Change STX in the next few lines to your species name (ex. AAGA, PAST, PSTR, MCAV, or SSID)
 export MinIndPerc=0.75
-FILTERS1="-uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -dosnpstat 1 -doHWE 1 -sb_pval 1e-5 -hetbias_pval 1e-5 -skipTriallelic 1 -minInd 1000 -snp_pval 1e-5 -minMaf 0.05"
+FILTERS1="-uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -dosnpstat 1 -doHWE 1 -sb_pval 1e-5 -hetbias_pval 1e-5 -skipTriallelic 1 -minInd $MI2 -snp_pval 1e-5 -minMaf 0.05"
 TODO1="-doMajorMinor 1 -doMaf 1 -doCounts 1 -makeMatrix 1 -doIBS 1 -doCov 1 -doGeno 8 -doPost 1 -doGlf 2"
 echo 'cat bams.nr | sort > bams.NR && mv bams.NR bams.nr && export NIND2=`cat bams.nr | wc -l`; export MI2=`echo "($NIND2*$MinIndPerc+0.5)/1" | bc`' >calc2
 echo "source calc2 && angsd -b bams.nr -GL 1 $FILTERS1 $TODO1 -P 12 -out STX && Rscript ~/bin/pcaStructure.R STX.ibsMat > pcaStruc.txt">a2
