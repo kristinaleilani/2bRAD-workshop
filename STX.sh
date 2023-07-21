@@ -324,7 +324,7 @@ sbatch split.slurm
 cp *_Coral.bam* /scratch/07090/kblack/STX/Recruits
 cd /scratch/07090/kblack/STX/Recruits
 
-# Remove _Coral from all file names
+# Remove _Coral from all file names 
 for filename in *.bam; do 
     [ -f "$filename" ] || continue
     mv "$filename" "${filename//_Coral/}"
@@ -363,6 +363,7 @@ scp kblack@ls6.tacc.utexas.edu:/scratch/07090/kblack/STX/Bonnetheads/dd.pdf .
 # back in TACC, check how many bams retained in bams.qc
 wc -l bams.qc
 # These are the number of samples that pass quality control filtering 
+# Note: If bams.qc retains all your bams, you may need to manually remove the low quality bams yourself. Check low quality bams in qualRanks, and use nano to edit your bams.qc and delete bams <10% coverage.
 
 
 ### Initial IBS production, detecting and removing clones:
@@ -378,7 +379,7 @@ sbatch a1.slurm
 # scp hctree.pdf to your computer (open a new shell on your computer)
 cd path/to/your/documents/on/local/computer
 scp kblack@ls6.tacc.utexas.edu:/scratch/07090/kblack/STX/Bonnetheads/hctree.pdf .
-# open hctree.pdf and look for clones (branches hanging below the 0.15 cutoff)
+# open hctree.pdf and look for clones (branches hanging below the 0.15 cutoff line)
 # back in TACC, check how many bams retained in bams.nr
 wc -l bams.nr
 # These are the number of samples after quality control filtering and removing clones
