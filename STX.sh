@@ -11,13 +11,15 @@ cd xz-5.4.3/
 make
 make install
 
-# edit .bashrc:
+# edit .bashrc in home:
+cd
 nano .bashrc
+# paste into section 2:
    export LD_LIBRARY_PATH=$HOME/xz-5.4.3/lib:$LD_LIBRARY_PATH
    export LIBRARY_PATH=$HOME/xz-5.4.3/lib:$LIBRARY_PATH
    export C_INCLUDE_PATH=$HOME/xz-5.4.3/include:$C_INCLUDE_PATH
-logout
-# re-login
+# Ctrl O to save, Ctrl X to exit
+
 
 # now, install htslib:
 cd
@@ -33,10 +35,11 @@ make HTSSRC=../htslib
 # now adding ANGSD to $PATH
 cd
 nano .bashrc
-# section 2:
+# paste into section 2:
    export PATH=$HOME/angsd:$PATH
    export PATH=$HOME/angsd/misc:$PATH
 # save (Ctl-O, Ctl-X)
+# logout of TACC and re-login to take effect
 
 
 
