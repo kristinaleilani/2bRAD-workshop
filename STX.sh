@@ -1,5 +1,46 @@
 # Script is based on: https://github.com/z0on/2bRAD_denovo/blob/master/2bRAD_README.sh
 
+------- INSTALL ANGSD: 
+
+# install xz first from https://tukaani.org/xz/
+cd
+wget https://tukaani.org/xz/xz-5.2.3.tar.gz --no-check-certificate
+tar vxf xz-5.2.3.tar.gz 
+cd xz-5.2.3/
+./configure --prefix=$HOME/xz-5.2.3/
+make
+make install
+
+# edit .bashrc:
+nano .bashrc
+   export LD_LIBRARY_PATH=$HOME/xz-5.2.3/lib:$LD_LIBRARY_PATH
+   export LIBRARY_PATH=$HOME/xz-5.2.3/lib:$LIBRARY_PATH
+   export C_INCLUDE_PATH=$HOME/xz-5.2.3/include:$C_INCLUDE_PATH
+logout
+# re-login
+
+# now, install htslib:
+cd
+git clone https://github.com/samtools/htslib.git
+cd htslib
+make CFLAGS=" -g -Wall -O2 -D_GNU_SOURCE -I$HOME/xz-5.2.3/include"
+
+cd
+git clone https://github.com/ANGSD/angsd.git 
+cd angsd
+make HTSSRC=../htslib
+
+# now adding ANGSD to $PATH
+cd
+nano .bashrc
+# section 2:
+   export PATH=$HOME/angsd:$PATH
+   export PATH=$HOME/angsd/misc:$PATH
+# save (Ctl-O, Ctl-X)
+
+
+
+
 
 #####----------- DOWNLOADING RAW READS FROM BASESPACE ---------###############
 # Note: You must have a BaseSpace account 
@@ -142,8 +183,8 @@ ls -l *.trim | wc -l
 #import reference genome for your species from NCBI
 cd $STOCKYARD
 cd db
-rsync --copy-links --times --verbose rsync://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/024/679/065/GCA_024679065.1_ASM2467906v1/GCA_024679065.1_ASM2467906v1_genomic.fna.gz .
-gunzip GCA_024679065.1_ASM2467906v1_genomic.fna.gz
+rsync --copy-links --times --verbose rsync://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/002/042/975/GCF_002042975.1_ofav_dov_v1/GCF_002042975.1_ofav_dov_v1_genomic.fna.gz .
+gunzip GCF_002042975.1_ofav_dov_v1_genomic.fna.gz
 
 
 
