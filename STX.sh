@@ -4,18 +4,18 @@
 
 # install xz first from https://tukaani.org/xz/
 cd
-wget https://tukaani.org/xz/xz-5.2.3.tar.gz --no-check-certificate
-tar vxf xz-5.2.3.tar.gz 
-cd xz-5.2.3/
-./configure --prefix=$HOME/xz-5.2.3/
+wget https://tukaani.org/xz/xz-5.4.3.tar.gz --no-check-certificate
+tar vxf xz-5.4.3.tar.gz 
+cd xz-5.4.3/
+./configure --prefix=$HOME/xz-5.4.3/
 make
 make install
 
 # edit .bashrc:
 nano .bashrc
-   export LD_LIBRARY_PATH=$HOME/xz-5.2.3/lib:$LD_LIBRARY_PATH
-   export LIBRARY_PATH=$HOME/xz-5.2.3/lib:$LIBRARY_PATH
-   export C_INCLUDE_PATH=$HOME/xz-5.2.3/include:$C_INCLUDE_PATH
+   export LD_LIBRARY_PATH=$HOME/xz-5.4.3/lib:$LD_LIBRARY_PATH
+   export LIBRARY_PATH=$HOME/xz-5.4.3/lib:$LIBRARY_PATH
+   export C_INCLUDE_PATH=$HOME/xz-5.4.3/include:$C_INCLUDE_PATH
 logout
 # re-login
 
@@ -23,7 +23,7 @@ logout
 cd
 git clone https://github.com/samtools/htslib.git
 cd htslib
-make CFLAGS=" -g -Wall -O2 -D_GNU_SOURCE -I$HOME/xz-5.2.3/include"
+make CFLAGS=" -g -Wall -O2 -D_GNU_SOURCE -I$HOME/xz-5.4.3/include"
 
 cd
 git clone https://github.com/ANGSD/angsd.git 
