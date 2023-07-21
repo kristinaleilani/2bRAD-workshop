@@ -90,7 +90,7 @@ cp -R FLKeys /work/07090/kblack/STX2
 
 
 # Go into your species' folder
-cd Bonnetheads
+cd Recruits
 
 
 
@@ -275,17 +275,10 @@ done
 ls6_launcher_creator.py -j split -n split -a IBN21018 -e kblack@utexas.edu -t 00:10:00 -w 48 -q normal
 sbatch split.slurm
 
-# Reindex new bams names
->maps2
-for F in `ls *_Coral.bam`; do
-echo "samtools index $F">>maps2
-done
-ls6_launcher_creator.py -j maps2 -n maps2 -a IBN21018 -e kblack@utexas.edu -t 0:10:00  
-sbatch maps2.slurm
 
 # Move your bam files with only coral reads back to your working directory
-cp *_Coral.bam* /scratch/07090/kblack/STX
-cd /scratch/07090/kblack/STX
+cp *_Coral.bam* /scratch/07090/kblack/STX/Recruits
+cd /scratch/07090/kblack/STX/Recruits
 
 # Remove _Coral from all file names
 for filename in *.bam; do 
@@ -314,7 +307,7 @@ sbatch maps2.slurm
 # Use angsd installed locally (not conda version)
 module load Rstats
 # Change -minInd to 50% of your sample size
-FILTERSQ="-uniqueOnly 1 -remove_bads 1 -minMapQ 20 -maxDepth 1000 -minInd 43"
+FILTERSQ="-uniqueOnly 1 -remove_bads 1 -minMapQ 20 -maxDepth 1000 -minInd 26"
 TODOQ="-doQsDist 1 -doDepth 1 -doCounts 1 -dumpCounts 2"
 echo "ls *.bam > bams && angsd -b bams -GL 1 $FILTERSQ $TODOQ -P 1 -out dd && Rscript ~/bin/plotQC.R prefix=dd >qualRanks">a0
 ls6_launcher_creator.py -j a0 -n a0 -a IBN21018 -e kblack@utexas.edu -t 1:00:00  
