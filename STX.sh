@@ -291,9 +291,16 @@ cd /scratch/07090/kblack/STX
 for filename in *.bam; do 
     [ -f "$filename" ] || continue
     mv "$filename" "${filename//_Coral/}"
-
 done
 
+
+# Re-index your new coral-only bams
+>index
+for F in `ls *.bam`; do
+echo "samtools index -c ${F}.bam">>index
+done
+ls6_launcher_creator.py -j index -n index -a IBN21018 -e kblack@utexas.edu -t 2:00:00 -w 48 -N 4 
+sbatch index.slurm
 
 
 
