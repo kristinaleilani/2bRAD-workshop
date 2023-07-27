@@ -373,7 +373,7 @@ export MinIndPerc=0.75
 FILTERS0="-uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -dosnpstat 1 -doHWE 1 -sb_pval 1e-5 -hetbias_pval 1e-5 -skipTriallelic 1 -minInd $MI -snp_pval 1e-5 -minMaf 0.05"
 TODO0="-doMajorMinor 1 -doMaf 1 -doCounts 1 -makeMatrix 1 -doIBS 1 -doCov 1 -doGeno 8 -doPost 1 -doGlf 2"
 echo 'export NIND=`cat bams.qc | wc -l`; export MI=`echo "($NIND*$MinIndPerc+0.5)/1" | bc`' >calc1
-echo "source calc1 && angsd -b bams.qc -GL 1 $FILTERS0 $TODO0 -P 12 -out STX && Rscript ~/bin/detect_clones.R bams.qc STX.ibsMat 0.15">a1
+echo "source calc1 && angsd -b bams.qc -GL 1 $FILTERS0 $TODO0 -P 12 -out STX1 && Rscript ~/bin/detect_clones.R bams.qc STX1.ibsMat 0.15">a1
 ls6_launcher_creator.py -j a1 -n a1 -a IBN21018 -e kblack@utexas.edu -t 2:00:00 -w 1
 sbatch a1.slurm
 # scp hctree.pdf to your computer (open a new shell on your computer)
@@ -391,11 +391,11 @@ export MinIndPerc=0.75
 FILTERS1="-uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -dosnpstat 1 -doHWE 1 -sb_pval 1e-5 -hetbias_pval 1e-5 -skipTriallelic 1 -minInd $MI2 -snp_pval 1e-5 -minMaf 0.05"
 TODO1="-doMajorMinor 1 -doMaf 1 -doCounts 1 -makeMatrix 1 -doIBS 1 -doCov 1 -doGeno 8 -doPost 1 -doGlf 2"
 echo 'cat bams.nr | sort > bams.NR && mv bams.NR bams.nr && export NIND2=`cat bams.nr | wc -l`; export MI2=`echo "($NIND2*$MinIndPerc+0.5)/1" | bc`' >calc2
-echo "source calc2 && angsd -b bams.nr -GL 1 $FILTERS1 $TODO1 -P 12 -out STX && Rscript ~/bin/pcaStructure.R STX.ibsMat > pcaStruc.txt">a2
+echo "source calc2 && angsd -b bams.nr -GL 1 $FILTERS1 $TODO1 -P 12 -out STX2 && Rscript ~/bin/pcaStructure.R STX2.ibsMat > pcaStruc.txt">a2
 ls6_launcher_creator.py -j a2 -n a2 -a IBN21018 -e kblack@utexas.edu -t 2:00:00 -w 1 
 sbatch a2.slurm
 # Check how many sites retained:
-NSITES=`zcat STX.mafs.gz | wc -l`
+NSITES=`zcat STX2.mafs.gz | wc -l`
 echo $NSITES
 
 
