@@ -410,13 +410,13 @@ scp kblack@ls6.tacc.utexas.edu:/scratch/07090/kblack/STX/Bonnetheads/bams.nr .
 
 # Change STX in the next few lines to your species name (ex. AAGA, PAST, PSTR, MCAV, or SSID)
 # Admixture with NGSAdmix
-echo 'for K in `seq 6` ; do  NGSadmix -likes STX.beagle.gz -K $K -P 12 -o STX${K}; done' >adm
+echo 'for K in `seq 6` ; do  NGSadmix -likes STX2.beagle.gz -K $K -P 12 -o STX${K}; done' >adm
 ls6_launcher_creator.py -j adm -n adm -a IBN21018 -e kblack@utexas.edu -t 1:00:00 -w 1 
 sbatch adm.slurm
 
 # Relatedness with ngsRelate
-echo 'export NIND2=`cat bams.qc | wc -l`; export NS=`zcat STX.mafs.gz | wc -l`' >calc
-echo 'source calc && zcat STX.mafs.gz | cut -f5 |sed 1d >freq && ngsRelate  -g STX.glf.gz -n $NIND2 -f freq -O STX.res >STX.relatedness' >rel
+echo 'export NIND2=`cat bams.qc | wc -l`; export NS=`zcat STX1.mafs.gz | wc -l`' >calc
+echo 'source calc && zcat STX1.mafs.gz | cut -f5 |sed 1d >freq && ngsRelate  -g STX1.glf.gz -n $NIND2 -f freq -O STX.res >STX.relatedness' >rel
 ls6_launcher_creator.py -j rel -n rel -a IBN21018 -e kblack@utexas.edu -t 0:30:00 -w 1
 sbatch rel.slurm
 
