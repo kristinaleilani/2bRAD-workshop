@@ -65,7 +65,7 @@ pheatmap(IBS)
 # reading long relatedness table, output of ngsRelate
 rel=read.table("Recruits.res",sep="\t",header=T)
 
-# creatig an empty square matrix
+# creating an empty square matrix
 relm=matrix(0,nrow=length(unique(rel$a))+1,ncol=length(unique(rel$a))+1)
 
 # filling up the square matrix with entries from "rab" column
@@ -76,7 +76,7 @@ for (a in unique(rel$a)) {
   }
 }
 diag(relm)=1
-# adding names to columns and rows - assuming ngsRelate was run on angsd result obtained for bams.nr file
+# adding names to columns and rows - assuming ngsRelate was run on angsd result obtained for bams.qc file
 bams=scan("bams.qc",what="character") # list of bam files
 bams=sub(".bam","",bams)
 dimnames(relm)=list(bams,bams)
