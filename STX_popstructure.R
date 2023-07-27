@@ -2,6 +2,7 @@
 library(dplyr)
 library(vegan)
 library(ggplot2)
+library(pheatmap)
 setwd("~/Documents/STX") 
 # Change all species names in this file (Bonnet, Agaricia, or Recruits) to yours (PSTR, MCAV, OFAV, SSID, AAGA, or PAST)
 
