@@ -404,4 +404,21 @@ cd path/to/your/documents/on/local/computer
 scp kblack@ls6.tacc.utexas.edu:/scratch/07090/kblack/STX/Bonnetheads/*ibsMat .
 scp kblack@ls6.tacc.utexas.edu:/scratch/07090/kblack/STX/Bonnetheads/bams.nr .
 
-# From here, we will move to R where we will plot population structure!
+
+
+#####-------------------------------- Admixture and relatedness --------------------###############
+
+# Change STX in the next few lines to your species name (ex. AAGA, PAST, PSTR, MCAV, or SSID)
+# Admixture with NGSAdmix
+echo 'for K in `seq 6` ; do  NGSadmix -likes STX.beagle.gz -K $K -P 12 -o STX${K}; done' >adm
+ls6_launcher_creator.py -j adm -n adm -a IBN21018 -e kblack@utexas.edu -t 1:00:00 -w 1 
+sbatch adm.slurm
+
+# Relatedness with ngsRelate
+echo 'export NIND2=`cat bams.qc | wc -l`; export NS=`zcat STX.mafs.gz | wc -l`' >calc
+echo 'source calc && zcat STX.mafs.gz | cut -f5 |sed 1d >freq && ngsRelate  -g STX.glf.gz -n $NIND2 -f freq -O STX.res >STX.relatedness' >rel
+ls6_launcher_creator.py -j rel -n rel -a IBN21018 -e kblack@utexas.edu -t 0:30:00 -w 1
+sbatch rel.slurm
+
+# scp *.res, *qopt, and bams.qc to your computer for plotting in R
+
