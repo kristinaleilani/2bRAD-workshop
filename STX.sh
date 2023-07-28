@@ -43,6 +43,27 @@ nano .bashrc
 
 
 
+-------  Install NGSadmix :
+cd ~/bin/
+wget popgen.dk/software/download/NGSadmix/ngsadmix32.cpp 
+g++ ngsadmix32.cpp -O3 -lpthread -lz -o NGSadmix
+cd -
+
+
+
+-------  Install ngsRelate :
+cd 
+git clone https://github.com/ANGSD/NgsRelate.git
+cd NgsRelate
+make HTSSRC=../htslib
+cp ngs* ~/bin/
+cd
+
+
+
+
+
+
 
 
 #####----------- DOWNLOADING RAW READS FROM BASESPACE ---------###############
