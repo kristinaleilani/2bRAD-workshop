@@ -14,7 +14,7 @@ samples$Sample=paste(sub(".bam","",samples$Sample),sep="")
 rownames(samples)<-samples$Sample
 
 # Import IBS matrix
-IBS=as.matrix(read.table("Bonnet.ibsMat"))
+IBS=as.matrix(read.table("Bonnet2.ibsMat"))
 dimnames(IBS)=list(rownames(samples),rownames(samples))
 
 
