@@ -4,6 +4,7 @@ library(vegan)
 library(ggplot2)
 library(pheatmap)
 setwd("~/Documents/STX") 
+# If you're using windows and set your working directory by copying the path, then you will need to change the directions of the backslashes in your path here.
 # Change all species names in this file (Bonnet, Agaricia, or Recruits) to yours (PSTR, MCAV, OFAV, SSID, AAGA, or PAST)
 
 # Import sample names
