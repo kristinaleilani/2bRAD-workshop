@@ -93,40 +93,31 @@ pheatmap(as.dist(1-relm))
 #######----- Exploring admixture in your population -----#######
 
 
-# For K=2 (assuming two genetic clusters)
-dir="~/Documents/STX" # path to input files
-inName="Agaricia_k2.qopt" # name of the input file to plot, output of ngsAdmix run
-pops="pops.txt" # 2-column tab-delimited table of individual assignments to populations; must be in the same order as samples in the bam list.
-npops=as.numeric(sub(".+(\\d+)\\..+","\\1",inName))
-tbl=read.table(paste(inName,sep=""),header=F)
-i2p=read.table(paste(pops,sep=""),fill = T, header=T)
-names(i2p)=c("ind","pop")
-tbl=cbind(tbl,i2p)
-row.names(tbl)=tbl$ind
-head(tbl)
+q<-read.table("Agaricia_k2.qopt") # name of the input file to plot, output of ngsAdmix run
+pop<-read.table("pops.txt") # 2-column tab-delimited table of individual assignments to populations; must be in the same order as samples in the bam list.
+ord<-order(pop$pop) #order it by population
+barplot(t(q)[,ord],
+        col=1:2,
+        names=pop$pop[ord],
+        las=2,
+        space=0,
+        border=NA,
+        xlab="Site",
+        ylab="Admixture proportions for K=2")
 
-qm=as.qmatrix(as.matrix(read.table("Agaricia_k2.qopt")))
-bp=barplot(qm,border=NA,space=0)
-axis(1, at = 1:nrow(qm), labels = i2p$pop[bp$order], las = 3, cex.axis = .4) 
-
-
-# For K=3 (assuming three genetic clusters)
-dir="~/Documents/STX" # path to input files
-inName="Agaricia_k3.qopt" # name of the input file to plot, output of ngsAdmix run
-pops="pops.txt" # 2-column tab-delimited table of individual assignments to populations; must be in the same order as samples in the bam list.
-npops=as.numeric(sub(".+(\\d+)\\..+","\\1",inName))
-tbl=read.table(paste(inName,sep=""),header=F)
-i2p=read.table(paste(pops,sep=""),fill = T, header=T)
-names(i2p)=c("ind","pop")
-tbl=cbind(tbl,i2p)
-row.names(tbl)=tbl$ind
-head(tbl)
+q<-read.table("Agaricia_k3.qopt") # name of the input file to plot, output of ngsAdmix run
+pop<-read.table("pops.txt") # 2-column tab-delimited table of individual assignments to populations; must be in the same order as samples in the bam list.
+ord<-order(pop$pop) #order it by population
+barplot(t(q)[,ord],
+        col=1:3,
+        names=pop$pop[ord],
+        las=2,
+        space=0,
+        border=NA,
+        xlab="Site",
+        ylab="Admixture proportions for K=3")
 
 
-my.colors <- c("blue4","cyan3","hotpink","gold","orange")
-my.palette <- CreatePalette(my.colors, 8)
-qm=as.qmatrix(as.matrix(read.table("Agaricia_k3.qopt")))
-bp=barplot(qm,border=NA,space=0,col.palette = my.palette)
-axis(1, at = 1:nrow(qm), labels = i2p$pop[bp$order], las = 3, cex.axis = .4) 
+# You can look at admixture scenarios for 4, 5, and 6 clusters as well
 
 
