@@ -95,6 +95,7 @@ pheatmap(as.dist(1-relm))
 
 q<-read.table("Agaricia_k2.qopt") # name of the input file to plot, output of ngsAdmix run
 pop<-read.table("pops.txt") # 2-column tab-delimited table of individual assignments to populations; must be in the same order as samples in the bam list.
+names(pop)=c("ind","pop")
 ord<-order(pop$pop) #order it by population
 barplot(t(q)[,ord],
         col=1:2,
@@ -107,6 +108,7 @@ barplot(t(q)[,ord],
 
 q<-read.table("Agaricia_k3.qopt") # name of the input file to plot, output of ngsAdmix run
 pop<-read.table("pops.txt") # 2-column tab-delimited table of individual assignments to populations; must be in the same order as samples in the bam list.
+names(pop)=c("ind","pop")
 ord<-order(pop$pop) #order it by population
 barplot(t(q)[,ord],
         col=1:3,
