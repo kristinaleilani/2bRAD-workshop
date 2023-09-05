@@ -313,6 +313,7 @@ scp kblack@ls6.tacc.utexas.edu:/scratch/07090/kblack/STX/Bonnetheads/idxstats .
 # Open idxstats and see how many reads from each sample mapped to coral chromosomes vs symbiont chromosomes. Hopefully most of the reads mapped to coral (chr1-10).
 # This file is just for your reference, so we can see whether your samples contain mostly coral or symbiont reads.
 
+
 # exit idev (type exit)
 
 
@@ -359,6 +360,18 @@ echo "samtools index $F">>maps2
 done
 ls6_launcher_creator.py -j maps2 -n maps2 -a IBN21018 -e kblack@utexas.edu -t 0:10:00  
 sbatch maps2.slurm
+
+
+
+
+# How many sites from each sample mapped to the coral genome?
+>countreads
+for F in `ls *.bam`; do 
+M=`samtools view -F 0x04 -c ${F}` ;
+echo "${F} $M">>countreads;
+done
+bash countreads
+# Check numreads
 
 
 
