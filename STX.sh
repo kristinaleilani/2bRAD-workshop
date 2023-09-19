@@ -371,7 +371,7 @@ M=`samtools view -F 0x04 -c ${F}` ;
 echo "${F} $M">>countreads;
 done
 bash countreads
-# Check numreads
+# Check countreads
 
 
 
