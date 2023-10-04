@@ -92,12 +92,11 @@ pheatmap(as.dist(1-relm))
 
 #######----- Exploring admixture in your population -----#######
 
-
-q<-read.table("Agaricia_k2.qopt") # name of the input file to plot, output of ngsAdmix run
+q2<-read.table("Agaricia_k2.qopt") # name of the input file to plot, output of ngsAdmix run
 pop<-read.table("pops.txt") # 2-column tab-delimited table of individual assignments to populations; must be in the same order as samples in the bam list.
 names(pop)=c("ind","pop")
 ord<-order(pop$pop) #order it by population
-barplot(t(q)[,ord],
+barplot(t(q2)[,ord],
         col=1:2,
         names=pop$pop[ord],
         las=2,
@@ -105,12 +104,48 @@ barplot(t(q)[,ord],
         border=NA,
         xlab="Site",
         ylab="Admixture proportions for K=2")
+# If it looks like you have two main admixture groups, let's save these assignments:
+npops=ncol(q2)
+cluster.admix=apply(q2[,1:npops],1,function(x) {return(paste(which(x>0.5),collapse=".")) })
+#save(cluster.admix,file=paste("Bonnet_clusters.RData",sep=""))
 
-q<-read.table("Agaricia_k3.qopt") # name of the input file to plot, output of ngsAdmix run
+# Let's plot a PCoA colored by two admixture groups:
+ord=capscale(IBS~1)
+summary(ord) 
+ords=scores(ord,display="sites")
+axes2plot=c(1:4) # which PCAs to plot
+scores=data.frame(ord$CA$u[,axes2plot])
+scores=cbind(scores, cluster.admix)
+scores$cluster.admix<-as.factor(scores$cluster.admix)
+
+# Plot a PCoA colored by admixture group:
+ggplot(scores,aes(scores[,1],scores[,2], asp=1, fill=cluster.admix)) + 
+  geom_point(aes(size=1, colour = cluster.admix)) +
+  theme_bw()+
+  coord_fixed()+
+  xlab(names(scores)[1])+
+  ylab(names(scores)[2])+
+  geom_label(label=rownames(scores))+
+  guides(size = "none")
+
+# Get separate samples lists of each admixture group
+admix1 <- subset(rownames(scores), scores$cluster.admix == 1) #22 samples
+admix1 <- paste0(admix1, ".bam")
+write.table(admix1, "Bonnet_cluster1", sep="\t", col.names = F, row.names = F)
+admix2 <- subset(rownames(scores), scores$cluster.admix == 2) #33 samples
+admix2 <- paste0(admix2, ".bam")
+write.table(admix2, "Bonnet_cluster2", sep="\t", col.names = F, row.names = F)
+
+
+
+
+
+#######-----  Next, let's explore a k=3 scenario...
+q3<-read.table("Agaricia_k3.qopt") # name of the input file to plot, output of ngsAdmix run
 pop<-read.table("pops.txt") # 2-column tab-delimited table of individual assignments to populations; must be in the same order as samples in the bam list.
 names(pop)=c("ind","pop")
 ord<-order(pop$pop) #order it by population
-barplot(t(q)[,ord],
+barplot(t(q3)[,ord],
         col=1:3,
         names=pop$pop[ord],
         las=2,
@@ -118,8 +153,12 @@ barplot(t(q)[,ord],
         border=NA,
         xlab="Site",
         ylab="Admixture proportions for K=3")
+# If it looks like you have two main admixture groups, let's save these assignments:
+npops=ncol(q3)
+cluster.admix=apply(q3[,1:npops],1,function(x) {return(paste(which(x>0.33),collapse=".")) })
+# You can plot a PCoA colored by 3 admixture groups as well.
 
 
-# You can look at admixture scenarios for 4, 5, and 6 clusters as well
+# Also take a look at admixture scenarios for 4, 5, and 6 clusters
 
 
