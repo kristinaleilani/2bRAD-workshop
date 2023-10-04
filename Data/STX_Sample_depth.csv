@@ -1,0 +1,560 @@
+Sample,Site,Depth
+PAST1,Butler Bay,2
+PAST2,Butler Bay,2
+PAST3,Butler Bay,2
+PAST4,Butler Bay,2
+PAST5,Butler Bay,2
+PAST6,Deep end,2
+PAST7,Deep end,2
+PAST8,Deep end,2
+PAST9,Deep end,2
+PAST10,Deep end,2
+PAST11,Deep end,2
+PAST12,Isaac Bay,2
+PAST13,Isaac Bay,2
+PAST14,Isaac Bay,2
+PAST15,Isaac Bay,2
+PAST16,Isaac Bay,2
+PAST17,Isaac Bay,2
+PAST18,Isaac Bay,2
+PAST19,Isaac Bay,2
+PAST20,Isaac Bay,2
+PAST21,Isaac Bay,2
+PAST22,Isaac Bay,2
+PAST23,Isaac Bay,2
+PAST24,Deep end,2
+PAST25,Deep end,2
+PAST26,Deep end,2
+PAST27,Deep end,2
+PAST28,The Palms,5
+PAST29,The Palms,5
+PAST30,The Palms,5
+PAST31,The Palms,5
+PAST32,The Palms,6
+PAST33,The Palms,8
+PAST34,Cane Bay,23
+PAST35,Cane Bay,14
+PAST36,Cane Bay,14
+PAST37,Cane Bay,12
+PAST38,Cane Bay,12
+PAST39,Cane Bay,12
+PAST40,Cane Bay,12
+PAST41,Cane Bay,9
+PAST42,Cane Bay,9
+PAST43,Cane Bay,8
+PAST44,Butler Bay,7
+PAST45,Butler Bay,7
+PAST46,Butler Bay,7
+PAST47,Butler Bay,7
+PAST48,Fredericksted Pier,3
+PAST49,Fredericksted Pier,3
+PAST50,Fredericksted Pier,3
+PAST51,Fredericksted Pier,3
+PAST52,Fredericksted Pier,3
+PAST53,Fredericksted Pier,3
+PAST54,Fredericksted Pier,3
+PAST55,Fredericksted Pier,3
+PAST56,Cane Bay,3
+PAST57,Cane Bay,3
+PAST58,Cane Bay,3
+PAST59,Cane Bay,3
+PAST60,Cane Bay,3
+PAST61,Cane Bay,3
+AAGA1,Butler Bay,2
+AAGA2,Butler Bay,2
+AAGA3,Butler Bay,2
+AAGA4,Butler Bay,2
+AAGA5,Butler Bay,2
+AAGA6,Butler Bay,2
+AAGA7,Deep end,2
+AAGA8,Deep end,2
+AAGA9,Deep end,2
+AAGA10,Isaac Bay,2
+AAGA11,Isaac Bay,2
+AAGA12,Isaac Bay,2
+AAGA13,Isaac Bay,2
+AAGA14,Isaac Bay,2
+AAGA15,Columbus landing,2
+AAGA16,Columbus landing,2
+AAGA17,Columbus landing,2
+AAGA18,Columbus landing,2
+AAGA19,Deep end,2
+AAGA20,Deep end,2
+AAGA21,Deep end,2
+AAGA22,Deep end,2
+AAGA23,Deep end,2
+AAGA24,Deep end,2
+AAGA25,Carambola shallow,10
+AAGA26,The Palms,4
+AAGA27,The Palms,5
+AAGA28,The Palms,5
+AAGA29,The Palms,5
+AAGA30,Butler Bay,7
+AAGA31,Butler Bay,7
+AAGA32,Butler Bay,7
+AAGA33,Butler Bay,7
+AAGA34,Butler Bay,7
+AAGA35,Butler Bay,7
+AAGA36,Butler Bay,7
+AAGA37,Fredericksted Pier,3
+AAGA38,Fredericksted Pier,3
+AAGA39,Fredericksted Pier,3
+AAGA40,Fredericksted Pier,3
+AAGA41,Fredericksted Pier,3
+PSTR1,Deep end,2
+PSTR2,Isaac Bay,2
+PSTR3,Isaac Bay,2
+PSTR4,Isaac Bay,2
+PSTR5,Isaac Bay,2
+PSTR6,Isaac Bay,2
+PSTR7,Isaac Bay,2
+PSTR8,Isaac Bay,2
+PSTR9,Isaac Bay,2
+PSTR10,Isaac Bay,2
+PSTR11,Columbus landing,2
+PSTR12,Deep end,2
+PSTR13,Deep end,2
+PSTR14,Deep end,2
+PSTR15,Deep end,2
+PSTR16,Deep end,2
+PSTR17,Deep end,2
+PSTR18,The Palms,2
+PSTR19,The Palms,2.5
+PSTR20,The Palms,3
+PSTR21,The Palms,2.5
+PSTR22,The Palms,3
+PSTR23,The Palms,3
+PSTR24,The Palms,3
+PSTR25,The Palms,2.5
+PSTR26,The Palms,3.5
+PSTR27,The Palms,4
+PSTR28,Butler Bay,7
+PSTR29,Butler Bay,7
+PSTR30,Butler Bay,7
+PSTR31,Butler Bay,7
+PSTR32,Butler Bay,7
+PSTR33,WAPA,10
+PSTR34,WAPA,10
+PSTR35,WAPA,10
+PSTR36,WAPA,10
+PSTR37,Butler Bay,7
+PSTR38,Butler Bay,7
+PSTR39,Butler Bay,7
+PSTR40,Butler Bay,7
+PSTR41,Butler Bay,7
+PSTR42,Butler Bay,7
+PSTR43,Butler Bay,7
+PSTR44,Butler Bay,7
+PSTR45,Butler Bay,7
+PSTR46,Fredericksted Pier,3
+PSTR47,Fredericksted Pier,3
+PSTR48,Fredericksted Pier,3
+PSTR49,Fredericksted Pier,3
+PSTR50,Fredericksted Pier,3
+PSTR51,Fredericksted Pier,3
+PSTR52,Deep end,3
+PSTR53,Deep end,3
+PSTR54,Deep end,3
+PSTR55,Deep end,3
+PSTR56,Deep end,3
+PSTR57,Deep end,3
+PSTR58,Deep end,3
+PSTR59,Deep end,3
+PSTR60,Deep end,3
+PSTR61,Joe's Reef,2
+PSTR62,Joe's Reef,2
+PSTR63,Joe's Reef,2
+PSTR64,Joe's Reef,2
+PSTR65,Joe's Reef,2
+PSTR66,Joe's Reef,2
+PSTR67,Joe's Reef,2
+PSTR68,Joe's Reef,2
+PSTR69,Joe's Reef,2
+PSTR70,Channel Rock,7
+PSTR71,Channel Rock,7
+PSTR72,Channel Rock,7
+PSTR73,Channel Rock,7
+PSTR74,Channel Rock,7
+PSTR75,North Star,9
+PSTR76,North Star,9
+PSTR77,North Star,9
+PSTR78,North Star,9
+PSTR79,North Star,9
+PSTR80,North Star,9
+PSTR81,Deep end,3
+PSTR82,Deep end,3
+PSTR83,Deep end,3
+PSTR84,Deep end,3
+PSTR85,Deep end,3
+PSTR86,Butler Bay,7
+PSTR87,Butler Bay,7
+PSTR88,Butler Bay,7
+PSTR89,Butler Bay,7
+PSTR90,Butler Bay,7
+PSTR91,Butler Bay,7
+PSTR92,Deep end,3
+PSTR93,Cane Bay,3
+PSTR94,Cane Bay,3
+PSTR95,Cane Bay,3
+PSTR96,Cane Bay,3
+SSID1,Butler Bay,2
+SSID2,Butler Bay,2
+SSID3,Cane Bay,21
+SSID4,Cane Bay,21
+SSID5,Cane Bay,21
+SSID6,Cane Bay,21
+SSID7,Deep end,2
+SSID8,Deep end,2
+SSID9,Deep end,2
+SSID10,Deep end,2
+SSID11,Deep end,2
+SSID12,Isaac Bay,2
+SSID13,Isaac Bay,2
+SSID14,Isaac Bay,2
+SSID15,Isaac Bay,2
+SSID16,Columbus landing,2
+SSID17,Columbus landing,2
+SSID18,Columbus landing,2
+SSID19,Deep end,2
+SSID20,Deep end,2
+SSID21,Deep end,2
+SSID22,Deep end,2
+SSID23,Deep end,2
+SSID24,Deep end,2
+SSID25,Carambola deep,30
+SSID26,Carambola deep,30
+SSID27,Carambola deep,30
+SSID28,Carambola deep,30
+SSID29,Carambola deep,30
+SSID30,Carambola deep,30
+SSID31,The Palms,5.5
+SSID32,The Palms,7
+SSID33,The Palms,7
+SSID34,The Palms,7
+SSID35,The Palms,9
+SSID36,The Palms,9
+SSID37,Cane Bay,24
+SSID38,Cane Bay,24
+SSID39,Cane Bay,20
+SSID40,Cane Bay,15
+SSID41,Cane Bay,15
+SSID42,Cane Bay,15
+SSID43,Butler Bay,7
+SSID44,Butler Bay,7
+SSID45,Butler Bay,7
+SSID46,Butler Bay,7
+SSID47,Butler Bay,7
+SSID48,Butler Bay,7
+SSID49,Fredericksted Pier,3
+SSID50,Fredericksted Pier,3
+SSID51,Fredericksted Pier,3
+SSID52,Fredericksted Pier,3
+SSID53,Fredericksted Pier,3
+MCAV1,Cane Bay,21
+MCAV2,Cane Bay,21
+MCAV3,Cane Bay,21
+MCAV4,Cane Bay,21
+MCAV5,Cane Bay,21
+MCAV6,Cane Bay,21
+MCAV7,Deep end,2
+MCAV8,Deep end,2
+MCAV9,Deep end,2
+MCAV10,Deep end,2
+MCAV11,Deep end,2
+MCAV12,Deep end,2
+MCAV13,Deep end,2
+MCAV14,Deep end,2
+MCAV15,Carambola shallow,10
+MCAV16,Carambola shallow,10
+MCAV17,Carambola shallow,10
+MCAV18,Carambola shallow,10
+MCAV19,Carambola deep,30
+MCAV20,Carambola deep,30
+MCAV21,Carambola deep,30
+MCAV22,Carambola deep,30
+MCAV23,The Palms,5
+MCAV24,The Palms,7.5
+MCAV25,The Palms,9
+MCAV26,Cane Bay,20
+MCAV27,Cane Bay,18
+MCAV28,Cane Bay,17
+MCAV29,Cane Bay,15
+MCAV30,Cane Bay deep,30
+MCAV31,Cane Bay deep,30
+MCAV32,Cane Bay deep,30
+MCAV33,Cane Bay,21
+MCAV34,Cane Bay,21
+MCAV35,Cane Bay,21
+MCAV36,Cane Bay,21
+MCAV37,Butler Bay,5.8
+MCAV38,Butler Bay,7.3
+MCAV39,Butler Bay,7.9
+MCAV40,Butler Bay,7.6
+MCAV41,Butler Bay,8
+MCAV42,Butler Bay,7
+MCAV43,Butler Bay,7
+MCAV44,Butler Bay,7
+MCAV45,Butler Bay,7
+MCAV46,Butler Bay,7
+MCAV47,Butler Bay,7
+MCAV48,Butler Bay,7
+MCAV49,Butler Bay,7
+MCAV50,Butler Bay,7
+MCAV51,Butler Bay,7
+MCAV52,Butler Bay,7
+MCAV53,Fredericksted Pier,3
+MCAV54,Fredericksted Pier,3
+OFAV1,Cane Bay,21
+OFAV2,Cane Bay,21
+OFAV3,Cane Bay,21
+OFAV4,Cane Bay,21
+OFAV5,Cane Bay,21
+OFAV6,Cane Bay,21
+OFAV7,Deep end,2
+OFAV8,Deep end,2
+OFAV9,Deep end,2
+OFAV10,Deep end,2
+OFAV11,Isaac Bay,2
+OFAV12,Isaac Bay,2
+OFAV13,Isaac Bay,2
+OFAV14,Isaac Bay,2
+OFAV15,Isaac Bay,2
+OFAV16,Isaac Bay,2
+OFAV17,Deep end,2
+OFAV18,Deep end,2
+OFAV19,Deep end,2
+OFAV20,Deep end,2
+OFAV21,Deep end,2
+OFAV22,Deep end,2
+OFAV23,Deep end,2
+OFAV24,Carambola shallow,10
+OFAV25,Carambola shallow,10
+OFAV26,Carambola shallow,10
+OFAV27,Carambola shallow,10
+OFAV28,Carambola shallow,10
+OFAV29,Carambola shallow,10
+OFAV30,Carambola shallow,10
+OFAV31,Carambola shallow,10
+OFAV32,Carambola shallow,10
+OFAV33,Carambola shallow,10
+OFAV34,Carambola shallow,10
+OFAV35,Carambola shallow,10
+OFAV36,Carambola shallow,10
+OFAV37,Carambola shallow,10
+OFAV38,Carambola deep,30
+OFAV39,Carambola deep,30
+OFAV40,Carambola deep,30
+OFAV41,Carambola deep,30
+OFAV42,Carambola deep,30
+OFAV43,Carambola deep,30
+OFAV44,Carambola deep,30
+OFAV45,Carambola deep,30
+OFAV46,Carambola deep,30
+OFAV47,Carambola deep,30
+OFAV48,Carambola deep,30
+OFAV49,Carambola deep,30
+OFAV50,Carambola deep,30
+OFAV51,Carambola deep,30
+OFAV52,The Palms,6.5
+OFAV53,The Palms,9
+OFAV54,The Palms,9
+OFAV55,The Palms,9
+OFAV56,The Palms,9
+OFAV57,The Palms,9
+OFAV58,The Palms,9
+OFAV59,The Palms,9
+OFAV60,Cane Bay deep,30
+OFAV61,Cane Bay deep,30
+OFAV62,Cane Bay deep,29
+OFAV63,Cane Bay deep,29
+OFAV64,Cane Bay deep,30
+OFAV65,Cane Bay deep,29
+OFAV66,Cane Bay,23
+OFAV67,Cane Bay,21
+OFAV68,Cane Bay,20
+OFAV69,Cane Bay,18
+OFAV70,Cane Bay,21
+OFAV71,Cane Bay,23
+OFAV72,Butler Bay,7.6
+OFAV73,Butler Bay,7.3
+OFAV74,Butler Bay,7
+OFAV75,Butler Bay,7
+OFAV76,Butler Bay,7.6
+OFAV77,WAPA,10
+OFAV78,WAPA,10
+OFAV79,WAPA,10
+OFAV80,WAPA,10
+OFAV81,WAPA,10
+OFAV82,WAPA,10
+OFAV83,Butler Bay,7
+OFAV84,Butler Bay,7
+OFAV85,Butler Bay,7
+OFAV86,Butler Bay,7
+OFAV87,Butler Bay,7
+OFAV88,Butler Bay,7
+OFAV89,Butler Bay,7
+OFAV90,Butler Bay,7
+OFAV91,Butler Bay,7
+OFAV92,Butler Bay,7
+OFAV93,Fredericksted Pier,3
+OFAV94,Fredericksted Pier,3
+OFAV95,Fredericksted Pier,3
+OFAV96,Fredericksted Pier,3
+OFAV97,Fredericksted Pier,3
+OFAV98,Fredericksted Pier,3
+N1As,Estate Little Princess,NA
+N2Bs,Estate Little Princess,NA
+N3As,Estate Little Princess,NA
+N4As,Estate Little Princess,NA
+N5As,Estate Little Princess,NA
+N6Bs,Estate Little Princess,NA
+N7As,Estate Little Princess,NA
+N8As,Estate Little Princess,NA
+N9As,Estate Little Princess,NA
+N10Bs,Estate Little Princess,NA
+N11As,Estate Little Princess,NA
+N12As,Estate Little Princess,NA
+D1As,Estate Little Princess,NA
+D2Bs,Estate Little Princess,NA
+D3As,Estate Little Princess,NA
+D4As,Estate Little Princess,NA
+D5As,Estate Little Princess,NA
+D6Bs,Estate Little Princess,NA
+D7As,Estate Little Princess,NA
+D8As,Estate Little Princess,NA
+D9As,Estate Little Princess,NA
+D10Bs,Estate Little Princess,NA
+D11As,Estate Little Princess,NA
+D12As,Estate Little Princess,NA
+C1As,Estate Little Princess,NA
+C2Bs,Estate Little Princess,NA
+C3As,Estate Little Princess,NA
+C4As,Estate Little Princess,NA
+C5As,Estate Little Princess,NA
+C6Bs,Estate Little Princess,NA
+C7As,Estate Little Princess,NA
+C8As,Estate Little Princess,NA
+C9As,Estate Little Princess,NA
+C10Bs,Estate Little Princess,NA
+C11As,Estate Little Princess,NA
+C12As,Estate Little Princess,NA
+N1Ap,Estate Little Princess,NA
+N2Bp,Estate Little Princess,NA
+N3Ap,Estate Little Princess,NA
+N4Ap,Estate Little Princess,NA
+N5Ap,Estate Little Princess,NA
+N6Bp,Estate Little Princess,NA
+N7Ap,Estate Little Princess,NA
+N8Ap,Estate Little Princess,NA
+N9Ap,Estate Little Princess,NA
+N10Bp,Estate Little Princess,NA
+N11Ap,Estate Little Princess,NA
+N12Ap,Estate Little Princess,NA
+D1Ap,Estate Little Princess,NA
+D2Bp,Estate Little Princess,NA
+D3Ap,Estate Little Princess,NA
+D4Ap,Estate Little Princess,NA
+D5Ap,Estate Little Princess,NA
+D6Bp,Estate Little Princess,NA
+D7Ap,Estate Little Princess,NA
+D8Ap,Estate Little Princess,NA
+D9Ap,Estate Little Princess,NA
+D10Bp,Estate Little Princess,NA
+D11Ap,Estate Little Princess,NA
+D12Ap,Estate Little Princess,NA
+C1Ap,Estate Little Princess,NA
+C2Bp,Estate Little Princess,NA
+C3Ap,Estate Little Princess,NA
+C4Ap,Estate Little Princess,NA
+C5Ap,Estate Little Princess,NA
+C6Bp,Estate Little Princess,NA
+C7Ap,Estate Little Princess,NA
+C8Ap,Estate Little Princess,NA
+C9Ap,Estate Little Princess,NA
+C10Bp,Estate Little Princess,NA
+C11Ap,Estate Little Princess,NA
+C12Ap,Estate Little Princess,NA
+N1Ar,Estate Little Princess,NA
+N2Br,Estate Little Princess,NA
+N3Ar,Estate Little Princess,NA
+N4Ar,Estate Little Princess,NA
+N5Ar,Estate Little Princess,NA
+N6Br,Estate Little Princess,NA
+N7Ar,Estate Little Princess,NA
+N8Ar,Estate Little Princess,NA
+N9Ar,Estate Little Princess,NA
+N10Br,Estate Little Princess,NA
+N11Ar,Estate Little Princess,NA
+N12Ar,Estate Little Princess,NA
+D1Ar,Estate Little Princess,NA
+D2Br,Estate Little Princess,NA
+D3Ar,Estate Little Princess,NA
+D4Ar,Estate Little Princess,NA
+D5Ar,Estate Little Princess,NA
+D6Br,Estate Little Princess,NA
+D7Ar,Estate Little Princess,NA
+D8Ar,Estate Little Princess,NA
+D9Ar,Estate Little Princess,NA
+D10Br,Estate Little Princess,NA
+D11Ar,Estate Little Princess,NA
+D12Ar,Estate Little Princess,NA
+C1Ar,Estate Little Princess,NA
+C2Br,Estate Little Princess,NA
+C3Ar,Estate Little Princess,NA
+C4Ar,Estate Little Princess,NA
+C5Ar,Estate Little Princess,NA
+C6Br,Estate Little Princess,NA
+C7Ar,Estate Little Princess,NA
+C8Ar,Estate Little Princess,NA
+C9Ar,Estate Little Princess,NA
+C10Br,Estate Little Princess,NA
+C11Ar,Estate Little Princess,NA
+C12Ar,Estate Little Princess,NA
+N1Au,Estate Little Princess,NA
+N2Bu,Estate Little Princess,NA
+N3Au,Estate Little Princess,NA
+N4Au,Estate Little Princess,NA
+N5Au,Estate Little Princess,NA
+N6Bu,Estate Little Princess,NA
+N7Au,Estate Little Princess,NA
+N8Au,Estate Little Princess,NA
+N9Au,Estate Little Princess,NA
+N10Bu,Estate Little Princess,NA
+N11Au,Estate Little Princess,NA
+N12Au,Estate Little Princess,NA
+D1Au,Estate Little Princess,NA
+D2Bu,Estate Little Princess,NA
+D3Au,Estate Little Princess,NA
+D4Au,Estate Little Princess,NA
+D5Au,Estate Little Princess,NA
+D6Bu,Estate Little Princess,NA
+D7Au,Estate Little Princess,NA
+D8Au,Estate Little Princess,NA
+D9Au,Estate Little Princess,NA
+D10Bu,Estate Little Princess,NA
+D11Au,Estate Little Princess,NA
+D12Au,Estate Little Princess,NA
+C1Au,Estate Little Princess,NA
+C2Bu,Estate Little Princess,NA
+C3Au,Estate Little Princess,NA
+C4Au,Estate Little Princess,NA
+C5Au,Estate Little Princess,NA
+C6Bu,Estate Little Princess,NA
+C7Au,Estate Little Princess,NA
+C8Au,Estate Little Princess,NA
+C9Au,Estate Little Princess,NA
+C10Bu,Estate Little Princess,NA
+C11Au,Estate Little Princess,NA
+C12Au,Estate Little Princess,NA
+PSTR97,Joe's Reef,2
+PSTR98,Joe's Reef,2
+PSTR99,Joe's Reef,2
+PSTR100,Joe's Reef,2
+PSTR101,Joe's Reef,2
+PSTR102,Joe's Reef,2
+PSTR103,Joe's Reef,2
+PSTR104,Joe's Reef,2
+PSTR105,Joe's Reef,2
+PSTR106,Joe's Reef,2
+PSTR107,Joe's Reef,2
+PSTR108,Joe's Reef,2
