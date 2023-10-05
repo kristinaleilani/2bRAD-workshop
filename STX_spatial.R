@@ -29,8 +29,10 @@ plot(sites[,c("Longitude","Latitude")],pch=16,cex=1,col="red")
 text(sites[,c("Longitude","Latitude")],labels=sites$Site,cex=0.7,col="red",pos=4)
 
 # Import shoreline map, taken from https://www.ngdc.noaa.gov/mgg/shorelines/
+# Put the downloaded file into your STX directory and unzip it
+install.packages('gpclib', type='source')
 if (!rgeosStatus()) gpclibPermit()
-gshhs.f.b <- "gshhg-bin-2.3.6/gshhs_f.b"
+gshhs.f.b <- "gshhg-bin-2.3.7/gshhs_f.b"
 sf1 <- getRgshhsMap(gshhs.f.b, xlim = c(-65,-64.5), ylim = c(17.6,17.9)) %>%
   fortify()
 
