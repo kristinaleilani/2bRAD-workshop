@@ -114,7 +114,7 @@ dev.off()
 
 #######----- Exploring admixture in your population -----#######
 
-q2<-read.table("STX_k2.qopt") # name of the input file to plot, output of ngsAdmix run
+q2<-read.table("STX2.qopt") # name of the input file to plot, output of ngsAdmix run
 pop<-read.table("pops.txt") # 2-column tab-delimited table of individual assignments to populations; must be in the same order as samples in the bam list.
 names(pop)=c("ind","pop")
 ord<-order(pop$pop) #order it by population
@@ -189,7 +189,7 @@ write.table(admix2, "STX_cluster2", sep="\t", col.names = F, row.names = F)
 
 
 #######-----  Next, let's explore a k=3 scenario...
-q3<-read.table("STX_k3.qopt") # name of the input file to plot, output of ngsAdmix run
+q3<-read.table("STX3.qopt") # name of the input file to plot, output of ngsAdmix run
 pop<-read.table("pops.txt") # 2-column tab-delimited table of individual assignments to populations; must be in the same order as samples in the bam list.
 names(pop)=c("ind","pop")
 ord<-order(pop$pop) #order it by population
