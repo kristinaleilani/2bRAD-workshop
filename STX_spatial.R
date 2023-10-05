@@ -78,6 +78,8 @@ ggplot() +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
   scale_fill_manual(values = c('tomato', 'lightblue', 'wheat'))+
   coord_equal(xlim = c(-65,-64.5), ylim = c(17.6,17.9), expand = 0)
+# Save your scatterpie map
+ggsave("PSTR_scatterpie.tiff", units="in", width=9, height=6, dpi=300, compression = 'lzw')
 
 
 
@@ -175,5 +177,6 @@ pl +
   ylab("Latitude") + 
   theme_bw()+
   coord_fixed(xlim = c(-64.95,-64.5), ylim = c(17.65,17.8), expand = 0)
-
+# Save your tess3r plot:
+ggsave("PSTR_tess3r.tiff", units="in", width=9, height=6, dpi=300, compression = 'lzw')
 
