@@ -6,7 +6,7 @@ library(dplyr)
 library(maptools)
 setwd("~/Documents/STX") 
 source("~/Documents/STX/RDA-forest_functions.R")
-# Remember to change all species names (ex. Bonnet, PSTR, AAGA, PAST, MCAV, OFAV, SSID to your own)
+# Remember to change "STX" to your species abbreviation (ex. PSTR, AAGA, PAST, MCAV, OFAV, SSID)
 
 
 ###---- Load the shoreline (download from www.ngdc.noaa.gov/mgg/shorelines)
@@ -16,9 +16,8 @@ sf1 <- getRgshhsMap(gshhs.f.b, xlim = c(-65,-64.5), ylim = c(17.6,17.9)) %>%
   fortify()
 
 ###---- Import species files 
-species <- "PSTR"
-IBS=as.matrix(read.table("Master_PSTR.ibsMat"))
-samples=read.table("bams.qc2")
+IBS=as.matrix(read.table("STX2.ibsMat"))
+samples=read.table("bams.nr")
 samples$V1=paste(sub(".bam","",samples$V1),sep="")
 samples=samples$V1
 dimnames(IBS)=list(samples,samples)
@@ -27,7 +26,7 @@ inds=as.data.frame(samples)
 colnames(inds) = "Sample"
 row.names(inds)<-inds$Sample
 
-# Remove technical replicates
+# If necessary, remove technical replicates. If not, skip.
 goods=samples[! samples %in% c('PSTR63a')]
 IBS=IBS[goods,goods] 
 inds=as.data.frame(inds[goods,] )
@@ -224,10 +223,12 @@ sb=spatialBootstrap(Y=IBS,X=env,newX=rasters,nreps=25,covariates=covars,top.pcs=
 # plot importance boxplot including space variables
 ggplot(sb$all.importances,aes(variable,importance))+geom_boxplot()+coord_flip()+theme_bw()
 sum(sb$median.importance) #proportion of variation explained
+ggsave("STX_gf_bootstrap_space.tiff", units="in", width=4, height=4, dpi=300, compression = 'lzw')
 
 # plot importance boxplot without space variables
 ggplot(sb$all.importances[!(sb$all.importances$variable %in% space),],aes(variable,importance))+geom_boxplot()+coord_flip()+theme_bw()
 sum(sb$median.importance[!(names(sb$median.importance) %in% space)]) #proportion of variation explained without spatial variables
+ggsave("STX_gf_bootstrap_nospace.tiff", units="in", width=4, height=4, dpi=300, compression = 'lzw')
 
 
 
