@@ -29,6 +29,12 @@ dimnames(IBS)=list(rownames(samples),rownames(samples))
 hc=hclust(as.dist(IBS),"ave")
 plot(hc,cex=0.5) # clustering of samples by IBS (great to detect closely related individuals)
 abline(h=0.15,col="red") # this seems like a reasonable  "low-hang" threshold for calling related groups
+
+# Save your dendrogram plot without labels
+png("PSTR_IBS_dendrogram.png", width = 8, height = 8, units = 'in', res = 300)
+plot(hc,cex=0.0005) 
+dev.off()
+
 # If you tree seems to have clones, remove them here. If not, move onto plotting PCoA.
 cuts=cutree(hc,h=0.1)
 goods=c();i=1
@@ -55,6 +61,11 @@ lines(bstick(length(ord$CA$eig)),col="red") # "broken stick" model: expected ran
 
 #--- Plot a heatmap 
 pheatmap(IBS)
+# Save your heatmap plot
+png("PSTR_IBS_heatmap.png", width = 8, height = 8, units = 'in', res = 300)
+pheatmap(IBS)
+dev.off()
+
 
 
 
@@ -82,8 +93,19 @@ bams=scan("bams.qc",what="character") # list of bam files
 bams=sub(".bam","",bams)
 dimnames(relm)=list(bams,bams)
 
+# View a dendrogram of relatedness
 plot(hclust(as.dist(1-relm),method="ave"))
+# Save your dendrogram of relatedness
+png("PSTR_relate_dendrogram.png", width = 8, height = 8, units = 'in', res = 300)
+plot(hclust(as.dist(1-relm),method="ave"),cex=0.0005) # clustering of samples by IBS (great to detect closely related individuals)
+dev.off()
+
+# View a heatmap of relatedness
 pheatmap(as.dist(1-relm))
+# Save your heatmap of relatedness
+png("PSTR_relate_heatmap.png", width = 8, height = 8, units = 'in', res = 300)
+pheatmap(as.dist(relm))
+dev.off()
 
 
 
@@ -104,6 +126,19 @@ barplot(t(q2)[,ord],
         border=NA,
         xlab="Site",
         ylab="Admixture proportions for K=2")
+
+# Save your barplot with k=2 clusters
+png("PSTR_admix_k2.png", width = 10, height = 4, units = 'in', res = 300)
+barplot(t(q2)[,ord],
+        col=1:2,
+        names=pop$pop[ord],
+        las=2,
+        space=0,
+        border=NA,
+        xlab="Site",
+        ylab="Admixture proportions for K=2")
+dev.off()
+
 # If it looks like you have two main admixture groups, let's save these assignments:
 npops=ncol(q2)
 cluster.admix=apply(q2[,1:npops],1,function(x) {return(paste(which(x>0.5),collapse=".")) })
@@ -111,9 +146,13 @@ cluster.admix=apply(q2[,1:npops],1,function(x) {return(paste(which(x>0.5),collap
 
 # Let's plot a PCoA colored by two admixture groups:
 ord=capscale(IBS~1)
-summary(ord) 
+summary(ord) # Check how much genetic variation are explained by MDS axes
+# Save your summary as a text file
+s <- summary(ord)
+capture.output(s, file = "PSTR_IBS_capscale.txt")
+
 ords=scores(ord,display="sites")
-axes2plot=c(1:4) # which PCAs to plot
+axes2plot=c(1:4) # which axes to plot
 scores=data.frame(ord$CA$u[,axes2plot])
 scores=cbind(scores, cluster.admix)
 scores$cluster.admix<-as.factor(scores$cluster.admix)
@@ -127,6 +166,15 @@ ggplot(scores,aes(scores[,1],scores[,2], asp=1, fill=cluster.admix)) +
   ylab(names(scores)[2])+
   geom_label(label=rownames(scores))+
   guides(size = "none")
+# Save your PCoA without labels, colored by admixture group:
+ggplot(scores,aes(scores[,1],scores[,2], asp=1, fill=cluster.admix)) + 
+  geom_point(aes(size=1, colour = cluster.admix), alpha=0.85) +
+  theme_bw()+
+  coord_fixed()+
+  xlab(names(scores)[1])+
+  ylab(names(scores)[2])+
+  guides(size = "none")
+ggsave("PSTR_PCoA_admix.tiff", units="in", width=9, height=5, dpi=300, compression = 'lzw')
 
 # Get separate samples lists of each admixture group
 admix1 <- subset(rownames(scores), scores$cluster.admix == 1) #22 samples
@@ -153,6 +201,17 @@ barplot(t(q3)[,ord],
         border=NA,
         xlab="Site",
         ylab="Admixture proportions for K=3")
+# Save your barplot with k=2 clusters
+png("PSTR_admix_k3.png", width = 10, height = 4, units = 'in', res = 300)
+barplot(t(q3)[,ord],
+        col=1:2,
+        names=pop$pop[ord],
+        las=2,
+        space=0,
+        border=NA,
+        xlab="Site",
+        ylab="Admixture proportions for K=3")
+dev.off()
 # If it looks like you have two main admixture groups, let's save these assignments:
 npops=ncol(q3)
 cluster.admix=apply(q3[,1:npops],1,function(x) {return(paste(which(x>0.33),collapse=".")) })
