@@ -10,6 +10,7 @@ library(scatterpie)
 library(dplyr)
 library(rworldmap)
 setwd("~/Documents/STX") 
+# Remember to change "STX" to your species abbreviation (AAGA, PAST, PSTR, OFAV, SSID, or MCAV) throughout 
 
 
 # Plot sites where samples were collected around St. Croix, VI
@@ -40,18 +41,18 @@ ggplot()+
 # Let's first look at our admixture groups by plotting pie charts on the map
 
 # Import site info for each sample
-samples=read.table("bams.qc2")
+samples=read.table("bams.nr")
 names(samples)[1]<-"Sample"
 samples$Sample=paste(sub(".bam","",samples$Sample),sep="")
 rownames(samples)<-samples$Sample
 # Merge samples with lat/lon coordinates
 i2p=read.csv("STX_sitesample.csv")
-i2p=i2p[i2p$Sample %like% "PSTR", ] # Subset your species
+i2p=i2p[i2p$Sample %like% "STX", ] # Subset your species
 mord=merge(samples, i2p, by="Sample",all.x=T)
 mordi=merge(mord, sites, by="Site",all.x=T)
 
 # Import admixture groups
-pies <- read.table('Master_PSTR2.qopt')
+pies <- read.table('STX2.qopt')
 pies1=cbind(pies, mordi)
 
 
@@ -155,7 +156,7 @@ my.colors <- c("tomato", "lightblue", "wheat","olivedrab", "cyan3","hotpink","go
 my.palette <- CreatePalette(my.colors, 8)
 
 # Import admixture groups, and plot as barplot
-qm=as.qmatrix(as.matrix(read.table("Master_PSTR2.qopt")))
+qm=as.qmatrix(as.matrix(read.table("STX2.qopt")))
 bp=barplot(qm,border=NA,space=0,col.palette = my.palette)
 axis(1, at = 1:nrow(qm), labels = i2p$Site[bp$order], las = 3, cex.axis = .4) 
 
@@ -178,5 +179,5 @@ pl +
   theme_bw()+
   coord_fixed(xlim = c(-64.95,-64.5), ylim = c(17.65,17.8), expand = 0)
 # Save your tess3r plot:
-ggsave("PSTR_tess3r.tiff", units="in", width=9, height=6, dpi=300, compression = 'lzw')
+ggsave("STX_tess3r.tiff", units="in", width=9, height=6, dpi=300, compression = 'lzw')
 
