@@ -1,4 +1,14 @@
 # Install TESS3R
+# to fix -fopenmp error (https://www.r-bloggers.com/using-osx-compiling-an-r-package-from-source-issues-with-fopenmp-try-this/):
+# brew install llvm
+# echo 'export PATH="/usr/local/opt/llvm/bin:$PATH"' >> /Users/kristinablack/.bash_profile
+# For compilers to find llvm you may need to set:
+  #echo 'export LDFLAGS="-L/usr/local/opt/llvm/lib"'  >> /Users/kristinablack/.bash_profile
+  #echo 'export CPPFLAGS="-I/usr/local/opt/llvm/include"' >> /Users/kristinablack/.bash_profile
+
+# mkdir ~/.R
+# echo "C=/usr/local/opt/llvm/bin/clang">>~/.R/Makevars
+# echo "CXX=/usr/local/opt/llvm/bin/clang++">>~/.R/Makevars
 install.packages("devtools",repos="https://cloud.r-project.org")
 devtools::install_github("bcm-uga/TESS3_encho_sen")
 library(tess3r)
