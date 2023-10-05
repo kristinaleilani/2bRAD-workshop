@@ -106,6 +106,7 @@ ggplot(NULL, aes(x=geo_dist, y=ibs_dist) ) +
   xlab('Geographic distance') +
   ylab('Genetic distance') +
   theme_bw()
+ggsave("STX_IBD.tiff", units="in", width=4, height=4, dpi=300, compression = 'lzw')
 
 
 
@@ -126,8 +127,9 @@ ggplot(scores,aes(scores[,1],scores[,2], asp=1, fill=Depth)) +
   coord_fixed()+
   xlab(names(scores)[1])+
   ylab(names(scores)[2])+
-  geom_label(label=rownames(scores))+
+  #geom_label(label=rownames(scores))+
   guides(size = "none")
+ggsave("STX_PCoA_depth.tiff", units="in", width=9, height=5, dpi=300, compression = 'lzw')
 
 # Plot a PCoA colored by any other environmental variable:
 ggplot(scores,aes(scores[,1],scores[,2], asp=1, fill=Temp_mean)) + 
@@ -136,8 +138,9 @@ ggplot(scores,aes(scores[,1],scores[,2], asp=1, fill=Temp_mean)) +
   coord_fixed()+
   xlab(names(scores)[1])+
   ylab(names(scores)[2])+
-  geom_label(label=rownames(scores))+
+  #geom_label(label=rownames(scores))+
   guides(size = "none")
+ggsave("STX_PCoA_env.tiff", units="in", width=9, height=5, dpi=300, compression = 'lzw')
 
 # Plot a PCoA colored by any other longitude or latitude:
 scores=cbind(scores, latlon)
@@ -147,9 +150,21 @@ ggplot(scores,aes(scores[,1],scores[,2], asp=1, fill=lat)) +
   coord_fixed()+
   xlab(names(scores)[1])+
   ylab(names(scores)[2])+
-  geom_label(label=rownames(scores))+
+  #geom_label(label=rownames(scores))+
   guides(size = "none")
+ggsave("STX_PCoA_lat.tiff", units="in", width=9, height=5, dpi=300, compression = 'lzw')
 
+ggplot(scores,aes(scores[,1],scores[,2], asp=1, fill=lon)) + 
+  geom_point(aes(size=1)) +
+  theme_bw()+
+  coord_fixed()+
+  xlab(names(scores)[1])+
+  ylab(names(scores)[2])+
+  #geom_label(label=rownames(scores))+
+  guides(size = "none")
+ggsave("STX_PCoA_lon.tiff", units="in", width=9, height=5, dpi=300, compression = 'lzw')
+
+       
 
 
 
@@ -185,13 +200,14 @@ ggplot(mm$delta,aes(var,values))+
   geom_boxplot()+
   coord_flip()+
   geom_hline(yintercept=0,col="red")
+ggsave("STX_gf_boxplot.tiff", units="in", width=4, height=4, dpi=300, compression = 'lzw')
 
 # bar chart of proportion of positive change in response to higher mtry, good variables would be the ones above the red line
 ggplot(mm$prop.positive,aes(var,prop.positive))+
   geom_bar(stat="identity")+
   coord_flip()+
   geom_hline(yintercept=0.5,col="red")
-
+ggsave("STX_gf_barchart.tiff", units="in", width=4, height=4, dpi=300, compression = 'lzw')
 
 
 #####--------------- Spatial bootstrap of mtry-passing variables ---------#######
