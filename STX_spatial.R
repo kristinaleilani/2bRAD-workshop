@@ -50,11 +50,6 @@ i2p=i2p[i2p$Sample %like% "PSTR", ] # Subset your species
 mord=merge(samples, i2p, by="Sample",all.x=T)
 mordi=merge(mord, sites, by="Site",all.x=T)
 
-mordi[47, 1] = "Joe's Reef"
-mordi[47, 3] = 17.76649
-mordi[47, 4] = -64.62907
-
-
 # Import admixture groups
 pies <- read.table('Master_PSTR2.qopt')
 pies1=cbind(pies, mordi)
