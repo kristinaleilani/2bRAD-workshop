@@ -5,7 +5,7 @@ library(ggplot2)
 library(pheatmap)
 setwd("~/Documents/STX") 
 # If you're using windows and set your working directory by copying the path, then you will need to change the directions of the backslashes in your path here.
-# Change all species names in this file (Bonnet, Agaricia, or Recruits) to yours (PSTR, MCAV, OFAV, SSID, AAGA, or PAST)
+# Change all species names in this file (ex. change "STX" to your species: PSTR, MCAV, OFAV, SSID, AAGA, or PAST)
 
 # Import sample names
 samples=read.table("bams.nr")
@@ -14,7 +14,7 @@ samples$Sample=paste(sub(".bam","",samples$Sample),sep="")
 rownames(samples)<-samples$Sample
 
 # Import IBS matrix
-IBS=as.matrix(read.table("Bonnet2.ibsMat"))
+IBS=as.matrix(read.table("STX2.ibsMat"))
 dimnames(IBS)=list(rownames(samples),rownames(samples))
 
 
@@ -31,7 +31,7 @@ plot(hc,cex=0.5) # clustering of samples by IBS (great to detect closely related
 abline(h=0.15,col="red") # this seems like a reasonable  "low-hang" threshold for calling related groups
 
 # Save your dendrogram plot without labels
-png("PSTR_IBS_dendrogram.png", width = 8, height = 8, units = 'in', res = 300)
+png("STX_IBS_dendrogram.png", width = 8, height = 8, units = 'in', res = 300)
 plot(hc,cex=0.0005) 
 dev.off()
 
@@ -62,7 +62,7 @@ lines(bstick(length(ord$CA$eig)),col="red") # "broken stick" model: expected ran
 #--- Plot a heatmap 
 pheatmap(IBS)
 # Save your heatmap plot
-png("PSTR_IBS_heatmap.png", width = 8, height = 8, units = 'in', res = 300)
+png("STX_IBS_heatmap.png", width = 8, height = 8, units = 'in', res = 300)
 pheatmap(IBS)
 dev.off()
 
@@ -75,7 +75,7 @@ dev.off()
 #######----- Exploring relatedness in your population -----#######
 
 # reading long relatedness table, output of ngsRelate
-rel=read.table("Recruits.res",sep="\t",header=T)
+rel=read.table("STX.res",sep="\t",header=T)
 
 # creating an empty square matrix
 relm=matrix(0,nrow=length(unique(rel$a))+1,ncol=length(unique(rel$a))+1)
@@ -96,14 +96,14 @@ dimnames(relm)=list(bams,bams)
 # View a dendrogram of relatedness
 plot(hclust(as.dist(1-relm),method="ave"))
 # Save your dendrogram of relatedness
-png("PSTR_relate_dendrogram.png", width = 8, height = 8, units = 'in', res = 300)
+png("STX_relate_dendrogram.png", width = 8, height = 8, units = 'in', res = 300)
 plot(hclust(as.dist(1-relm),method="ave"),cex=0.0005) # clustering of samples by IBS (great to detect closely related individuals)
 dev.off()
 
 # View a heatmap of relatedness
 pheatmap(as.dist(1-relm))
 # Save your heatmap of relatedness
-png("PSTR_relate_heatmap.png", width = 8, height = 8, units = 'in', res = 300)
+png("STX_relate_heatmap.png", width = 8, height = 8, units = 'in', res = 300)
 pheatmap(as.dist(relm))
 dev.off()
 
@@ -114,7 +114,7 @@ dev.off()
 
 #######----- Exploring admixture in your population -----#######
 
-q2<-read.table("Agaricia_k2.qopt") # name of the input file to plot, output of ngsAdmix run
+q2<-read.table("STX_k2.qopt") # name of the input file to plot, output of ngsAdmix run
 pop<-read.table("pops.txt") # 2-column tab-delimited table of individual assignments to populations; must be in the same order as samples in the bam list.
 names(pop)=c("ind","pop")
 ord<-order(pop$pop) #order it by population
@@ -128,7 +128,7 @@ barplot(t(q2)[,ord],
         ylab="Admixture proportions for K=2")
 
 # Save your barplot with k=2 clusters
-png("PSTR_admix_k2.png", width = 10, height = 4, units = 'in', res = 300)
+png("STX_admix_k2.png", width = 10, height = 4, units = 'in', res = 300)
 barplot(t(q2)[,ord],
         col=1:2,
         names=pop$pop[ord],
@@ -149,7 +149,7 @@ ord=capscale(IBS~1)
 summary(ord) # Check how much genetic variation are explained by MDS axes
 # Save your summary as a text file
 s <- summary(ord)
-capture.output(s, file = "PSTR_IBS_capscale.txt")
+capture.output(s, file = "STX_IBS_capscale.txt")
 
 ords=scores(ord,display="sites")
 axes2plot=c(1:4) # which axes to plot
@@ -174,22 +174,22 @@ ggplot(scores,aes(scores[,1],scores[,2], asp=1, fill=cluster.admix)) +
   xlab(names(scores)[1])+
   ylab(names(scores)[2])+
   guides(size = "none")
-ggsave("PSTR_PCoA_admix.tiff", units="in", width=9, height=5, dpi=300, compression = 'lzw')
+ggsave("STX_PCoA_admix.tiff", units="in", width=9, height=5, dpi=300, compression = 'lzw')
 
 # Get separate samples lists of each admixture group
 admix1 <- subset(rownames(scores), scores$cluster.admix == 1) #22 samples
 admix1 <- paste0(admix1, ".bam")
-write.table(admix1, "Bonnet_cluster1", sep="\t", col.names = F, row.names = F)
+write.table(admix1, "STX_cluster1", sep="\t", col.names = F, row.names = F)
 admix2 <- subset(rownames(scores), scores$cluster.admix == 2) #33 samples
 admix2 <- paste0(admix2, ".bam")
-write.table(admix2, "Bonnet_cluster2", sep="\t", col.names = F, row.names = F)
+write.table(admix2, "STX_cluster2", sep="\t", col.names = F, row.names = F)
 
 
 
 
 
 #######-----  Next, let's explore a k=3 scenario...
-q3<-read.table("Agaricia_k3.qopt") # name of the input file to plot, output of ngsAdmix run
+q3<-read.table("STX_k3.qopt") # name of the input file to plot, output of ngsAdmix run
 pop<-read.table("pops.txt") # 2-column tab-delimited table of individual assignments to populations; must be in the same order as samples in the bam list.
 names(pop)=c("ind","pop")
 ord<-order(pop$pop) #order it by population
@@ -202,7 +202,7 @@ barplot(t(q3)[,ord],
         xlab="Site",
         ylab="Admixture proportions for K=3")
 # Save your barplot with k=2 clusters
-png("PSTR_admix_k3.png", width = 10, height = 4, units = 'in', res = 300)
+png("STX_admix_k3.png", width = 10, height = 4, units = 'in', res = 300)
 barplot(t(q3)[,ord],
         col=1:2,
         names=pop$pop[ord],
