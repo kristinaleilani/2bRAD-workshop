@@ -4,16 +4,20 @@ library(vegan)
 library(gradientForest)
 library(dplyr)
 library(maptools)
+library(PBSmapping)
 setwd("~/Documents/STX") 
 source("~/Documents/STX/RDA-forest_functions.R")
 # Remember to change "STX" to your species abbreviation (ex. PSTR, AAGA, PAST, MCAV, OFAV, SSID)
 
 
 ###---- Load the shoreline (download from www.ngdc.noaa.gov/mgg/shorelines)
-if (!rgeosStatus()) gpclibPermit()
-gshhs.f.b <- "gshhg-bin-2.3.6/gshhs_f.b"
-sf1 <- getRgshhsMap(gshhs.f.b, xlim = c(-65,-64.5), ylim = c(17.6,17.9)) %>%
+gshhs.f.b <- "gshhg-bin-2.3.7/gshhs_f.b"
+sf1 <- importGSHHS(gshhs.f.b, xlim = c(295,295.5), ylim = c(17.6,17.9)) %>%
   fortify()
+sf1$X <- (360-sf1$X)*(-1) # Change longitude from 0-360 to -180-180
+names(sf1)[1] <- "group"
+names(sf1)[4] <- "long"
+names(sf1)[5] <- "lat"
 
 ###---- Import species files 
 IBS=as.matrix(read.table("STX2.ibsMat"))
