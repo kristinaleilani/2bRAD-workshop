@@ -1,16 +1,7 @@
 # Install TESS3R
-# to fix -fopenmp error (https://www.r-bloggers.com/using-osx-compiling-an-r-package-from-source-issues-with-fopenmp-try-this/):
-# brew install llvm
-# echo 'export PATH="/usr/local/opt/llvm/bin:$PATH"' >> /Users/kristinablack/.bash_profile
-# For compilers to find llvm you may need to set:
-  #echo 'export LDFLAGS="-L/usr/local/opt/llvm/lib"'  >> /Users/kristinablack/.bash_profile
-  #echo 'export CPPFLAGS="-I/usr/local/opt/llvm/include"' >> /Users/kristinablack/.bash_profile
-
-# mkdir ~/.R
-# echo "C=/usr/local/opt/llvm/bin/clang">>~/.R/Makevars
-# echo "CXX=/usr/local/opt/llvm/bin/clang++">>~/.R/Makevars
 install.packages("devtools",repos="https://cloud.r-project.org")
 devtools::install_github("bcm-uga/TESS3_encho_sen")
+# You may need to install Rtools if you have not already. If so, follow the instructions in your console.
 library(tess3r)
 library(maptools)
 library(maps)
@@ -18,7 +9,9 @@ library(data.table)
 library(sp)
 library(scatterpie)
 library(dplyr)
+library(ggplot2)
 library(rworldmap)
+library(PBSmapping)
 setwd("~/Documents/STX") 
 # Remember to change "STX" to your species abbreviation (AAGA, PAST, PSTR, OFAV, SSID, or MCAV) throughout 
 
@@ -30,11 +23,13 @@ text(sites[,c("Longitude","Latitude")],labels=sites$Site,cex=0.7,col="red",pos=4
 
 # Import shoreline map, taken from https://www.ngdc.noaa.gov/mgg/shorelines/
 # Put the downloaded file into your STX directory and unzip it
-install.packages('gpclib', type='source')
-if (!rgeosStatus()) gpclibPermit()
 gshhs.f.b <- "gshhg-bin-2.3.7/gshhs_f.b"
-sf1 <- getRgshhsMap(gshhs.f.b, xlim = c(-65,-64.5), ylim = c(17.6,17.9)) %>%
+sf1 <- importGSHHS(gshhs.f.b, xlim = c(295,295.5), ylim = c(17.6,17.9)) %>%
   fortify()
+sf1$X <- (360-sf1$X)*(-1) # Change longitude coordinates form 0-360 to -180-180
+names(sf1)[1] <- "group"
+names(sf1)[4] <- "long"
+names(sf1)[5] <- "lat"
 
 # Map of collection sites around St. Croix (no genetic info included yet)
 ggplot()+
