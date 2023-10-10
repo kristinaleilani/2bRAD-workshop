@@ -83,7 +83,6 @@ length(goods)  # how many samples are left?
 # Subsetting all data for only the retained samples
 IBS=IBS[goods,goods] 
 latlon=latlon[goods,]
-admix=admix[goods,]
 env=env[goods,]
 inds=inds[goods,]
 sites1=sites1[goods,]
