@@ -221,7 +221,7 @@ plot(XY,pch=".",asp=1) # view the grid (Florida Keys seascape)
 
 # if there are no new points to predict, just skip the newX option in the call to spatialBootstrap; 
 # the predictions will be made for original data points then.
-sb=spatialBootstrap(Y=IBS,X=env,newX=rasters,nreps=25,covariates=covars,top.pcs=25)
+sb=spatialBootstrap(Y=IBS,X=env,newX=rasters,nreps=25,top.pcs=25)
 
 # plot importance boxplot including space variables
 ggplot(sb$all.importances,aes(variable,importance))+geom_boxplot()+coord_flip()+theme_bw()
@@ -239,7 +239,7 @@ ggsave("STX_gf_bootstrap_nospace.tiff", units="in", width=4, height=4, dpi=300, 
 # see https://gradientforest.r-forge.r-project.org/biodiversity-survey.pdf for more explanation
 
 turnovers=sb$turnovers
-write.csv(turnovers, file=paste(species, lineage, "turnovers.csv", sep='_'))
+write.csv(turnovers, file=paste("STX_turnovers.csv", sep='_'))
 
 raster.vars=colnames(turnovers)
 
