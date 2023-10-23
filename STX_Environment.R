@@ -212,12 +212,11 @@ ggplot(mm$prop.positive,aes(var,prop.positive))+
 ggsave("STX_gf_barchart.tiff", units="in", width=4, height=4, dpi=300, compression = 'lzw')
 
 
-#####--------------- Spatial bootstrap of mtry-passing variables ---------#######
-
+#--------------- Spatial bootstrap of mtry-passing variables
 ll=load("rasters_XY.RData") # load table of environmental values for a grid of spatial points where we want to predict how our creatures would adapt.
 ll
 # "rasters" "XY"
-plot(XY,pch=".",asp=1) # view the grid (Florida Keys seascape)
+plot(XY,pch=".",asp=1) # view the grid 
 
 # if there are no new points to predict, just skip the newX option in the call to spatialBootstrap; 
 # the predictions will be made for original data points then.
@@ -241,11 +240,13 @@ ggsave("STX_gf_bootstrap_nospace.tiff", units="in", width=4, height=4, dpi=300, 
 turnovers=sb$turnovers
 write.csv(turnovers, file=paste("STX_turnovers.csv", sep='_'))
 
-raster.vars=colnames(turnovers)
+# if we want to keep only top 5 predictors (recommended for cases when there are clear "winner" predictors):
+raster.vars=names(sb$median.importance[!names(sb$median.importance) %in% space])[1:5]
 
 # principal component analysis of the predicted genetic turnover patterns
-pc <- prcomp(turnovers)
+pc <- prcomp(turnovers[, raster.vars])
 plot(pc$sdev)
+# we will try to visualize the first 3 PCs
 pcs2show=c(1,2,3)
 
 # color flippage flags - change between -1 and 1 to possibly improve color representation in the final map
@@ -276,10 +277,11 @@ xrng <- range(pc$x[, 1], pc$rotation[, pcs2show[1]]/scal) * 1.9
 yrng <- range(pc$x[, 2], pc$rotation[, pcs2show[2]]/scal) * 1.9
 man.colors=rgb(r, g, b, max = 255)
 
+
 # -------- plotting the map of predicted adaptive communities
 
 coltxt="coral" 
-important=bests[1:3]
+important=raster.vars[order(sqrt(pc$rotation[raster.vars, 1]^2+pc$rotation[raster.vars, 2]^2),decreasing=T)][1:min(3,length(raster.vars))]
 lv=length(important)
 par(mfrow=c(1,2))
 plot((pc$x[, pcs2show[1:2]]), xlim = xrng, ylim = yrng, pch = ".", cex = 4, col = rgb(r, g, b, max = 255), asp = 1,xaxt="none",yaxt="none",bty="none",xlab="",ylab="")
@@ -290,5 +292,12 @@ plot(XY, pch=15,cex = 0.5, asp = 1, col = man.colors)
 map(coasts,add=T,col="grey80",fill=T,border="grey80",lwd=1)
 
 # contrasting colors = habitats requiring differential adaptation, likely driven by factors in the legend.
+# you can try plotting any of the environmental variables you think are important
+library(viridis)
+ggplot(XY,aes(x,y,color=rasters$TEMP_yearly_range))+geom_point()+scale_color_viridis()+coord_equal()
+ggplot(XY,aes(x,y,color=rasters$TEMP_mean))+geom_point()+scale_color_viridis()+coord_equal()
+
+
+
 
 
