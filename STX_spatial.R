@@ -83,13 +83,13 @@ pies6$Longitude=as.numeric(pies6$Longitude)
 pies6$Latitude=as.numeric(pies6$Latitude)
 ggplot() + 
   geom_polygon(data = sf1, aes(x=long, y = lat, group = group), fill = 'grey70', color='black', lwd = 0.1) +
-  geom_scatterpie(data = pies6, aes(x = Longitude, y = Latitude, r=radius/300), alpha=0.7, cols = c('V1','V2'))+
+  geom_scatterpie(data = pies6, aes(x = Longitude, y = Latitude, r=radius/300), alpha=0.7, cols = c('V1','V2'), sorted_by_radius=T)+
   theme_bw()+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
   scale_fill_manual(values = c('tomato', 'lightblue', 'wheat'))+
   coord_equal(xlim = c(-65,-64.5), ylim = c(17.6,17.9), expand = 0)
 # Save your scatterpie map
-ggsave("PSTR_scatterpie.tiff", units="in", width=9, height=6, dpi=300, compression = 'lzw')
+ggsave("STX_scatterpie.tiff", units="in", width=9, height=6, dpi=300, compression = 'lzw')
 
 
 
