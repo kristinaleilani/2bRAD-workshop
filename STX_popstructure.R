@@ -3,6 +3,7 @@ library(dplyr)
 library(vegan)
 library(ggplot2)
 library(pheatmap)
+library(data.table)
 setwd("~/Documents/STX") 
 # If you're using windows and set your working directory by copying the path, then you will need to change the directions of the backslashes in your path here.
 # Change all species names in this file (ex. change "STX" to your species: PSTR, MCAV, OFAV, SSID, AAGA, or PAST)
