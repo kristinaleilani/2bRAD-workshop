@@ -113,31 +113,28 @@ dev.off()
 
 
 #######----- Exploring admixture in your population -----#######
+source("plot_admixture_v5_function.R")
+npops <- 2 #choose number of populations
+inName <- paste0('STX', npops, '.qopt') #inName corresponds to .qopt files. Change to your species name.
 
-q2<-read.table("STX2.qopt") # name of the input file to plot, output of ngsAdmix run
-pop<-read.table("pops.txt") # 2-column tab-delimited table of individual assignments to populations; must be in the same order as samples in the bam list.
-names(pop)=c("ind","pop")
-ord<-order(pop$pop) #order it by population
-barplot(t(q2)[,ord],
-        col=1:2,
-        names=pop$pop[ord],
-        las=2,
-        space=0,
-        border=NA,
-        xlab="Site",
-        ylab="Admixture proportions for K=2")
+i2p=read.csv("STX_sitesample.csv")
+i2p=i2p[i2p$Sample %like% "STX", ] # Subset your species
+pop=merge(samples, i2p, by="Sample",all.x=T)
+names(pop)=c("ind", "pop")
 
-# Save your barplot with k=2 clusters
-png("STX_admix_k2.png", width = 10, height = 4, units = 'in', res = 300)
-barplot(t(q2)[,ord],
-        col=1:2,
-        names=pop$pop[ord],
-        las=2,
-        space=0,
-        border=NA,
-        xlab="Site",
-        ylab="Admixture proportions for K=2")
-dev.off()
+npops=as.numeric(sub("\\D+(\\d+)\\..+","\\1",inName))
+q=read.table(paste(inName,sep=""),header=F)
+tbl=cbind(q,pop)
+rownames(tbl) <- tbl$ind <- sub("(.*?)\\..*$", "\\1", tbl$ind)
+head(tbl,20) # this is how the resulting dataset must look
+tbl$pop=factor(tbl$pop,levels = c("Fredericksted Pier", "Butler Bay", "Carambola deep", "Carambola shallow",
+                                  "North Star", "Cane Bay deep", "Cane Bay", "Columbus landing",
+                                  "The Palms", "WAPA", "Deep end", "Joe's Reef", "Channel Rock", "Isaac Bay")) #Set order of sites to match the map.
+#png("STX_admix_k2.png", width = 10, height = 4, units = 'in', res = 300)
+plotAdmixture(data=tbl,npops=npops,grouping.method="distance")
+#dev.off()
+
+# You can also take a look at admixture scenarios for 3, 4, 5, and 6 clusters
 
 # If it looks like you have two main admixture groups, let's save these assignments:
 npops=ncol(q2)
@@ -164,6 +161,7 @@ ggplot(scores,aes(scores[,1],scores[,2], asp=1, fill=cluster.admix)) +
   coord_fixed()+
   xlab(names(scores)[1])+
   ylab(names(scores)[2])+
+  scale_color_manual(values=c("tomato", "lightblue"))+
   geom_label(label=rownames(scores))+
   guides(size = "none")
 # Save your PCoA without labels, colored by admixture group:
@@ -173,6 +171,7 @@ ggplot(scores,aes(scores[,1],scores[,2], asp=1, fill=cluster.admix)) +
   coord_fixed()+
   xlab(names(scores)[1])+
   ylab(names(scores)[2])+
+  scale_color_manual(values=c("tomato", "lightblue"))+
   guides(size = "none")
 ggsave("STX_PCoA_admix.tiff", units="in", width=9, height=5, dpi=300, compression = 'lzw')
 
@@ -186,38 +185,5 @@ write.table(admix2, "STX_cluster2", sep="\t", col.names = F, row.names = F)
 
 
 
-
-
-#######-----  Next, let's explore a k=3 scenario...
-q3<-read.table("STX3.qopt") # name of the input file to plot, output of ngsAdmix run
-pop<-read.table("pops.txt") # 2-column tab-delimited table of individual assignments to populations; must be in the same order as samples in the bam list.
-names(pop)=c("ind","pop")
-ord<-order(pop$pop) #order it by population
-barplot(t(q3)[,ord],
-        col=1:3,
-        names=pop$pop[ord],
-        las=2,
-        space=0,
-        border=NA,
-        xlab="Site",
-        ylab="Admixture proportions for K=3")
-# Save your barplot with k=2 clusters
-png("STX_admix_k3.png", width = 10, height = 4, units = 'in', res = 300)
-barplot(t(q3)[,ord],
-        col=1:2,
-        names=pop$pop[ord],
-        las=2,
-        space=0,
-        border=NA,
-        xlab="Site",
-        ylab="Admixture proportions for K=3")
-dev.off()
-# If it looks like you have two main admixture groups, let's save these assignments:
-npops=ncol(q3)
-cluster.admix=apply(q3[,1:npops],1,function(x) {return(paste(which(x>0.33),collapse=".")) })
-# You can plot a PCoA colored by 3 admixture groups as well.
-
-
-# Also take a look at admixture scenarios for 4, 5, and 6 clusters
 
 
