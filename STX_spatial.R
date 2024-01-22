@@ -12,6 +12,7 @@ library(dplyr)
 library(ggplot2)
 library(rworldmap)
 library(PBSmapping)
+library(tidyr)
 setwd("~/Documents/STX") 
 # Remember to change "STX" to your species abbreviation (AAGA, PAST, PSTR, OFAV, SSID, or MCAV) throughout 
 
@@ -62,8 +63,6 @@ mordi=merge(mord, sites, by="Site",all.x=T)
 pies <- read.table('STX2.qopt')
 pies1=cbind(pies, mordi)
 
-
-
 pies2 <- pies1 %>%
   mutate(Value = 1) %>%
   group_by(Site) %>%
@@ -90,6 +89,44 @@ ggplot() +
   coord_equal(xlim = c(-65,-64.5), ylim = c(17.6,17.9), expand = 0)
 # Save your scatterpie map
 ggsave("STX_scatterpie.tiff", units="in", width=9, height=6, dpi=300, compression = 'lzw')
+
+
+
+###---- Plotting the same scatterpie map by # individuals instead of % admixture
+# Import cluster.admix (from STX_popstructure.R)
+load("STX_clusters.RData")
+pies12=cbind(pies1, cluster.admix)
+pies2 <- pies12 %>%
+  mutate(Value = 1) %>%
+  group_by(Site) %>%
+  dplyr::summarise(
+    radius = sum(Value),
+  )
+pies3=merge(pies2, pies12, by="Site")
+pies31 <- pies3 %>%
+  pivot_wider(names_from = "cluster.admix",
+              names_prefix = "clust",
+              values_from = "cluster.admix",
+              values_fn = list(cluster.admix = length),
+              values_fill=0)
+pies4 = pies31 %>% 
+  group_by(Site) %>% 
+  dplyr::summarize(clust1=sum(clust1), clust2=sum(clust2))
+pies31$Sample=NULL
+pies31$clust1=NULL
+pies31$clust2=NULL
+pies31$V1=NULL
+pies31$V2=NULL
+pies5=merge(pies4, pies31, by="Site")
+pies6=aggregate(list(numdup=rep(1,nrow(pies5))),pies5, length)
+ggplot() + 
+  geom_polygon(data = sf1, aes(x=long, y = lat, group = group), fill = 'grey70', color='black', lwd = 0.1) +
+  geom_scatterpie(data = pies6, aes(x = Longitude, y = Latitude, r=radius/250), alpha=0.7, cols = c('clust1','clust2'), sorted_by_radius=T)+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  scale_fill_manual(values = c('tomato', 'lightblue', 'wheat'))+
+  coord_equal(xlim = c(-65,-64.5), ylim = c(17.6,17.9), expand = 0)
+
 
 
 
