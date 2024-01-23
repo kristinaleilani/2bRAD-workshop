@@ -56,8 +56,8 @@ rownames(samples)<-samples$Sample
 # Merge samples with lat/lon coordinates
 i2p=read.csv("STX_sitesample.csv")
 i2p=i2p[i2p$Sample %like% "STX", ] # Subset your species
-mord=merge(samples, i2p, by="Sample",all.x=T)
-mordi=merge(mord, sites, by="Site",all.x=T)
+mord=left_join(samples, i2p, by="Sample")
+mordi=left_join(mord, sites, by="Site")
 
 # Import admixture groups
 pies <- read.table('STX2.qopt')
