@@ -120,7 +120,7 @@ inName <- paste0('STX', npops, '.qopt') #inName corresponds to .qopt files. Chan
 
 i2p=read.csv("STX_sitesample.csv")
 i2p=i2p[i2p$Sample %like% "STX", ] # Subset your species
-pop=left_join(samples, i2p, by="Sample",all.x=T)
+pop=left_join(samples, i2p, by="Sample")
 names(pop)=c("ind", "pop")
 
 npops=as.numeric(sub("\\D+(\\d+)\\..+","\\1",inName))
