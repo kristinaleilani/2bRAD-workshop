@@ -138,8 +138,8 @@ plotAdmixture(data=tbl,npops=npops,grouping.method="distance")
 # You can also take a look at admixture scenarios for 3, 4, 5, and 6 clusters
 
 # If it looks like you have two main admixture groups, let's save these assignments:
-npops=ncol(q2)
-cluster.admix=apply(q2[,1:npops],1,function(x) {return(paste(which(x>0.5),collapse=".")) })
+npops=ncol(q)
+cluster.admix=apply(q[,1:npops],1,function(x) {return(paste(which(x>0.5),collapse=".")) })
 #save(cluster.admix,file=paste("STX_clusters.RData",sep=""))
 
 # Let's plot a PCoA colored by two admixture groups:
