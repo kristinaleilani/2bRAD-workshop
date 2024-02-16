@@ -80,9 +80,10 @@ pies5=merge(pies4, pies3, by="Site")
 pies6=aggregate(list(numdup=rep(1,nrow(pies5))),pies5, length)
 pies6$Longitude=as.numeric(pies6$Longitude)
 pies6$Latitude=as.numeric(pies6$Latitude)
+pies6$rad=pies6$numdup/300
 ggplot() + 
   geom_polygon(data = sf1, aes(x=long, y = lat, group = group), fill = 'grey70', color='black', lwd = 0.1) +
-  geom_scatterpie(data = pies6, aes(x = Longitude, y = Latitude, r=radius/300), alpha=0.7, cols = c('V1','V2'), sorted_by_radius=T)+
+  geom_scatterpie(data = pies6, aes(x = Longitude, y = Latitude, r=rad), alpha=0.7, cols = c('V1','V2'), sorted_by_radius=T)+
   theme_bw()+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
   scale_fill_manual(values = c('tomato', 'lightblue', 'wheat'))+
