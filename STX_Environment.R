@@ -121,6 +121,7 @@ scores=data.frame(ord$CA$u[,axes2plot])
 scores=cbind(scores, env)
 scores$cluster.admix<-as.factor(scores$cluster.admix)
 
+# For the next few plots, if only black dots are plotted, change "fill" to "color"
 # Plot a PCoA colored by depth:
 ggplot(scores,aes(scores[,1],scores[,2], asp=1, fill=Depth)) + 
   geom_point(aes(size=1)) +
