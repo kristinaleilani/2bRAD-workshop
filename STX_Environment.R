@@ -186,7 +186,7 @@ env=cbind(env,mems[,1:5])
 colnames(env)
 # remembering the names of spatial predictors
 #space=colnames(env)[grep("PCNM|xx|yy",colnames(env))]
-#space=colnames(env)[grep("xx|yy",colnames(env))]
+space=colnames(env)[grep("xx|yy",colnames(env))]
 
 
 #####--------- Variable selection  ---------#######
