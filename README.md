@@ -9,7 +9,7 @@ MCAV: *Montastrea cavernosa*\
 OFAV: *Orbicella faveolata*\
 PAST: *Porites astreoides*\
 PSTR: *Pseudodiploria strigosa*\
-SSID: *Siderastrea siderea*\
+SSID: *Siderastrea siderea*
 
 These species folders contains the Identity-by-State genetic distance matrix, sample list, and lineage assignments. These files can be input to the following R scripts:
 
