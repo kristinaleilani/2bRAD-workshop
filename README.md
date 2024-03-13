@@ -20,3 +20,4 @@ STX_environment.R finds genotype-environment associations using gradient forest.
 Additionally, environmental heterogeneity across the St. Croix seascape can be summarized into ecoregions using STX_envPCA.R
 And lastly, cryptic lineages within each species can be combined into a community abundance matrix, and associations between cryptic communities and ecoregions can be explored in Ecoregions.R
 
+Students can synthesize their findings using the report template (STX_ReportTemplate.docx)- which entails a literature search, note-taking during bioinformatics steps, explanations of each figure, and discussion points.
