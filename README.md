@@ -3,13 +3,13 @@ These instructions were developed as an introduction for undergraduates research
 
 Notes in TACC_Workshop.pdf are beginner lessons in using TACC (Texas Advanced Computing Center) and shell scripting. Scripts in STX.sh contain the 2bRAD pipeline for processing sequences in the STX coral project. If implementing these scripts in other projects, please change the project IDs, genomes, and emails referenced throughout.
 
-The Data folder contains all environmental and sample data. Internal folders contain genotype data organized by species:
-AAGA: Agaricia agaricites
-MCAV: Montastrea cavernosa
-OFAV: Orbicella faveolata
-PAST: Porites astreoides
-PSTR: Pseudodiploria strigosa
-SSID: Siderastrea siderea
+The Data folder contains all environmental and sample data. Internal folders contain genotype data organized by species:\
+AAGA: *Agaricia agaricites*\
+MCAV: *Montastrea cavernosa*\
+OFAV: *Orbicella faveolata*\
+PAST: *Porites astreoides*\
+PSTR: *Pseudodiploria strigosa*\
+SSID: *Siderastrea siderea*\
 
 These species folders contains the Identity-by-State genetic distance matrix, sample list, and lineage assignments. These files can be input to the following R scripts:
 
