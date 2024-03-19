@@ -132,8 +132,8 @@ plot(clust0$CA$eig) # See how many PCs to keep
 # Finding associations between community abundances and ecoregions and depth
 gf=makeGF(clust0,env0, keep=c(1:20), ntrees=1500)
 plot(gf)
-importance(gf) # Depth = 0.09660337 
-imp=sum_up_importances(gf, ecor2) # Ecoregions = 0.08024189
+importance(gf) # Depth = 0.08885511 
+imp=sum_up_importances(gf, ecor2) # Ecoregions = 0.07447745
 imp
 most_important=names(importance(gf))[1]
 # Plot turnover curves of cumulative importance
@@ -187,10 +187,12 @@ env0=env[,!names(env) %in% c("xx","yy")]
 plot(clust0, scaling=1, choices=c(1,2))
 plot(clust0$CA$eig) # See how many PCs to keep
 
+env1=env0[,1:36]
+
 # Re-run RDA forest with all environmental variables
-gf=makeGF(clust0,env0, keep=c(1:20), ntrees=1500)
+gf=makeGF(clust0,env1, keep=c(1:20), ntrees=1500)
 plot(gf)
-importance(gf) # Depth = 0.1425039328
+importance(gf) # Depth = 0.1459379973
 most_important=names(importance(gf))[1:6]
 # Plot turnover curves
 plot(gf,
