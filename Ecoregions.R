@@ -192,7 +192,7 @@ env1=env0[,1:36]
 # Re-run RDA forest with all environmental variables
 gf=makeGF(clust0,env1, keep=c(1:20), ntrees=1500)
 plot(gf)
-importance(gf) # Depth = 0.1459379973
+importance(gf) # Depth = 0.1459379973, Temp_max = 0.0095837383
 most_important=names(importance(gf))[1:6]
 # Plot turnover curves
 plot(gf,
