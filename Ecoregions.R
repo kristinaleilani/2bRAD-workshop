@@ -128,29 +128,47 @@ plot(clust0$CA$eig) # See how many PCs to keep
 
 
 
-########-------- RDA-FOREST (using gradient forest) ------#######
-# Finding associations between community abundances and ecoregions and depth
-gf=makeGF(clust0,env0, keep=c(1:20), ntrees=1500)
-plot(gf)
-importance(gf) # Depth = 0.08885511 
-imp=sum_up_importances(gf, ecor2) # Ecoregions = 0.07447745
-imp
-most_important=names(importance(gf))[1]
-# Plot turnover curves of cumulative importance
-plot(gf,
-     plot.type="C",
-     imp.vars=names(importance(gf))[1],
-     #show.overall = F,
-     par.args = list(
-       mgp = c(1.5, 0.5, 0),
-       mar = c(2.5, 1, 0.1, 0.5),
-       omi = c(0, 0.3, 0, 0)
-     ))
+#######-------- Gradient forest analysis --------#########
+
+#######-------- Explore associations with ecoregions --------#######
+# First cleanup community table
+clust.wide= clust1 %>%
+  pivot_wider(names_from = "cluster",
+              values_from = "cluster",
+              values_fn = list(cluster = length),
+              values_fill=0)
+clust.wide=as.data.frame(clust.wide)
+ecod=ecod %>% semi_join(clust.wide, by = "Site") 
+rownames(ecod)=ecod$Site
+ecod$Site=NULL
+# Match order between dataframes
+clust.wide=clust.wide[ order(match(rownames(clust.wide), rownames(ecod))), ]
+env=as.data.frame(ecod)
+# Now cleanup environmental table
+# Remove nonsense variables and variables that are the same at every site
+env$Entero_mean_yearly_range=NULL
+env$Entero_min=NULL
+env$Nitrogen_min=NULL
+env$xx=NULL
+env$yy=NULL
+clust.wide=clust.wide[,4:22]
+
+# Implement gradient forest 
+maxLevel <- log2(0.368*nrow(env)/2)
+gfeco <- gradientForest(cbind(env, clust.wide), predictor.vars=colnames(env), response.vars=colnames(clust.wide), ntree=500, maxLevel=maxLevel, trace=T, corr.threshold=0.50)
+plot(gfeco, plot.type = "O")
+importance(gfeco) # Depth = 0.02672922  
+imp=sum_up_importances(gfeco, ecor2) 
+imp # Ecoregions = 0.09793522
+by.importance <- names(importance(gfeco))[2]
+plot(gfeco, plot.type = "C", imp.vars = by.importance, show.overall = T, legend = T, leg.posn = "topleft", leg.nspecies = 5, cex.lab = 0.7, cex.legend = 0.4, cex.axis = 0.6, line.ylab = 0.9, par.args = list(mgp = c(1.5, 0.5, 0), mar = c(2.5, 1, 0.1, 0.5), omi = c(0, 0.3, 0, 0)))
 
 
-# Finding associations between community abundances and all environmental variables
-# Import environmental data
-enva=read.csv("STX_env.csv")
+
+
+#######-------- Explore associations with all environmental variables --------#######
+enva=read.csv("STXenv_allvars.csv")
+# Note that shifted coordinates are corrected for map projections
 env1=merge(enva, ecor, by="Site")
 ecod=left_join(depth3, env1, by="Site")
 ecod$Sample=NULL
@@ -172,37 +190,27 @@ ecod$Site=NULL
 clust.wide$Site=NULL
 # Match order between dataframes
 clust.wide=clust.wide[ order(match(rownames(clust.wide), rownames(ecod))), ]
-# Turn community adundance table into a Bray-Curtis dissimilarity matrix
-clust=as.matrix(vegdist(clust.wide, method="bray"))
-clust=data.frame(clust)
 env=as.data.frame(ecod)
+# Cleanup environmental table
 # Remove nonsense variables and variables that are the same at every site
 env$numdup=NULL
+env$X=NULL
 env$Entero_mean_yearly_range=NULL
 env$Entero_min=NULL
-# Regress latitude and longitude out of the ordination of the community matrix
-clust0=capscale(clust~1+Condition(as.matrix(env[,c("xx","yy")])))
-env0=env[,!names(env) %in% c("xx","yy")]
-# Look at PCA of sites
-plot(clust0, scaling=1, choices=c(1,2))
-plot(clust0$CA$eig) # See how many PCs to keep
+env$Nitrogen_min=NULL
+env$Latitude=NULL
+env$Longitude=NULL
+env=env[,1:40]
+# Remove redundant coordinate information
+clust.wide$xx=NULL
+clust.wide$yy=NULL
+env$xx=NULL
+env$yy=NULL
 
-env1=env0[,1:36]
-
-# Re-run RDA forest with all environmental variables
-gf=makeGF(clust0,env1, keep=c(1:20), ntrees=1500)
-plot(gf)
-importance(gf) # Depth = 0.1459379973, Temp_max = 0.0095837383
-most_important=names(importance(gf))[1:6]
-# Plot turnover curves
-plot(gf,
-     plot.type="C",
-     imp.vars=names(importance(gf))[1:2],
-     #show.overall = F,
-     par.args = list(
-       mgp = c(1.5, 0.5, 0),
-       mar = c(2.5, 1, 0.1, 0.5),
-       omi = c(0, 0.3, 0, 0)
-     ))
-
-
+# Implement gradient forest 
+maxLevel <- log2(0.368*nrow(env)/2)
+gfeco <- gradientForest(cbind(env, clust.wide), predictor.vars=colnames(env), response.vars=colnames(clust.wide), ntree=500, maxLevel=maxLevel, trace=T, corr.threshold=0.50)
+plot(gfeco, plot.type = "O")
+importance(gfeco) # Depth =0.0542375834, pH_mean_yearly_range= 0.0132380840, Entero_max=0.0114337200, Phosphorus_mean= 0.0100938414, pH_max=0.0093445185 
+by.importance <- names(importance(gfeco))[1:4]
+plot(gfeco, plot.type = "C", imp.vars = by.importance, show.overall = T, legend = T, leg.posn = "topleft", leg.nspecies = 5, cex.lab = 0.7, cex.legend = 0.4, cex.axis = 0.6, line.ylab = 0.9, par.args = list(mgp = c(1.5, 0.5, 0), mar = c(2.5, 1, 0.1, 0.5), omi = c(0, 0.3, 0, 0)))
