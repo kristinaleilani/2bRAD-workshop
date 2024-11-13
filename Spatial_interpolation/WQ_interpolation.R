@@ -5,7 +5,7 @@ library(raster)
 library(automap)
 
 ###-------- import Enterococcus -----#########
-setwd("~/Documents/Waterqualitydata/WQD_Enterococcus_2010_2022")
+setwd("~/Spatial_interpolation")
 Entero0<-read.csv("WQD_Enterococcus.csv")
 Entero1<- Entero0 %>%
   separate(ActivityStartDate, c("Month", "Day", "Year"), "/")
@@ -62,7 +62,7 @@ Entero.data.filt.month=Entero.data.filt %>%
 
 
 ###-------- import Dissolved Oxygen -----#########
-setwd("~/Documents/Waterqualitydata/WQD_DO_2010_2022")
+setwd("~/Spatial_interpolation")
 DO0<-read.csv("WQD_DO.csv")
 DO1<- DO0 %>%
   separate(ActivityStartDate, c("Month", "Day", "Year"), "/")
@@ -119,7 +119,7 @@ DO.data.filt.month=DO.data.filt %>%
 
 
 ###-------- import E. coli -----#########
-setwd("~/Documents/Waterqualitydata/WQD_Fecal Coliform_2010_2014")
+setwd("~/Spatial_interpolation")
 Ecoli0<-read.csv("WQD_Fecal_Coliform.csv")
 Ecoli1<- Ecoli0 %>%
   separate(ActivityStartDate, c("Month", "Day", "Year"), "/")
@@ -178,7 +178,7 @@ Ecoli.data.filt.month=Ecoli.data.filt %>%
 
 
 ###-------- import Nitrogen -----#########
-setwd("~/Documents/Waterqualitydata/WQD_Nitrogen_2009-2022 copy")
+setwd("~/Spatial_interpolation")
 Nitrogen0<-read.csv("WQD_Nitrogen.csv")
 Nitrogen1<- Nitrogen0 %>%
   separate(ActivityStartDate, c("Month", "Day", "Year"), "/")
@@ -238,7 +238,7 @@ Nitrogen.data.filt.month=Nitrogen.data.filt %>%
 
 ###-------- import pH -----#########
 
-setwd("~/Documents/TNC/Data/Waterqualitydata/WQD_pH_2010-2022 copy")
+setwd("~/Spatial_interpolation")
 pH0<-read.csv("WQD_pH.csv")
 pH1<- pH0 %>%
   separate(ActivityStartDate, c("Month", "Day", "Year"), "/")
@@ -301,7 +301,7 @@ pH.data.filt.month=pH.data.filt %>%
 
 ###-------- import Phosphorus -----#########
 
-setwd("~/Documents/TNC/Data/Waterqualitydata/WQD_Phosphorus_2013-2022 copy")
+setwd("~/Spatial_interpolation")
 Phosphorus0<-read.csv("WQD_Phosphorus.csv")
 Phosphorus1<- Phosphorus0 %>%
   separate(ActivityStartDate, c("Month", "Day", "Year"), "/")
@@ -362,7 +362,7 @@ Phosphorus.data.filt.month=Phosphorus.data.filt %>%
 
 ###-------- import Secchi -----#########
 
-setwd("~/Documents/TNC/Data/Waterqualitydata/WQD_Secchi_Depth_2010-2022")
+setwd("~/Spatial_interpolation")
 Secchi0<-read.csv("WQD_Secchi_Depth.csv")
 Secchi1<- Secchi0 %>%
   separate(ActivityStartDate, c("Month", "Day", "Year"), "/")
@@ -422,7 +422,7 @@ Secchi.data.filt.month=Secchi.data.filt %>%
 
 ###-------- import Temperature -----#########
 
-setwd("~/Documents/TNC/Data/Waterqualitydata/WQD_Temp_2010-2022 copy")
+setwd("~/Spatial_interpolation")
 Temp0<-read.csv("WQD_Temp.csv")
 Temp1<- Temp0 %>%
   separate(ActivityStartDate, c("Month", "Day", "Year"), "/")
@@ -560,7 +560,7 @@ hull.grid <- raster(hull.poly, res = 1/250)
 
 
 ###-------- Select coral sampling sites for extracting data -----#########
-setwd("~/Documents/STX/SppFiles")
+setwd("~/Data")
 site.locations <- read.csv('sitesSamples.csv', header = T)
 
 # View collection sites on the map
@@ -627,7 +627,7 @@ wq.spdf <- SpatialPointsDataFrame(wq.sp, as.data.frame(Secchi.only))
 
 ###-------- Kriging loop -----#########
 
-setwd("~/Documents/TNC/Data/Waterqualitydata/Interp")
+setwd("~/Spatial_interpolation/Output")
 library(automap)
 
 data.out = data.frame(new.locations[,1:3])
