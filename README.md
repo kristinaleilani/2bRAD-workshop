@@ -17,7 +17,7 @@ STX_popstructure.R examines population structure and cryptic genetic lineages wi
 STX_spatial.R explores the distribution of cryptic genetic lineages across the map.
 STX_environment.R finds genotype-environment associations using gradient forest.
 
-The Spatial_interpolation folder contains the R script and input files to interpolate environmental variables across the seascape. Each csv contains water quality observations collected by the U.S. Virgin Islands Department fo Planning and Natural Resources, which is publicly available at [waterqualitydata.us](https://www.waterqualitydata.us/).
+The Spatial_interpolation folder contains the R script and input files to interpolate environmental variables across the seascape. Each csv contains water quality observations collected by the U.S. Virgin Islands Department fo Planning and Natural Resources, which is publicly available at [waterqualitydata.us](https://www.waterqualitydata.us/). Start with Enviro_data_formatting.R to summarize each variable into mean, maximum, minimum, monthly range, and yearly range. Then the summarized variables can be input to a kriging loop to predict values across a spatial grid of St. Croix. AutoKrige.R implements the function autoKrige from the R package [automap](https://cran.r-project.org/web/packages/automap/automap.pdf).
 
 Additionally, environmental heterogeneity across the St. Croix seascape can be summarized into ecoregions using STX_envPCA.R
 And lastly, cryptic lineages within each species can be combined into a community abundance matrix, and associations between cryptic communities and ecoregions can be explored in Ecoregions.R
